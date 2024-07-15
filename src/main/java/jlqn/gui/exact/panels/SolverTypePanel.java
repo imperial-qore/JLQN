@@ -33,7 +33,7 @@ public class SolverTypePanel extends JPanel {
         case "LN":
           type = JLQNConstants.SolverType.LN;
           break;
-        case "Default":
+        case "ALL":
         default:
           type = JLQNConstants.SolverType.ALL;
           break;
@@ -73,8 +73,9 @@ public class SolverTypePanel extends JPanel {
     help.addHelp(solverLabel, "Solver used to solve the model");
     return solverLabel;
   }
+
   private JComponent solverList() {
-    String[] solverNameList = {"Default", "LN", "LQNS"};
+    String[] solverNameList = {"LN", "LQNS", "LN+LQNS"};
     solverTypes = new JComboBox<>(solverNameList);
 
     Dimension d = new Dimension(160, 30);

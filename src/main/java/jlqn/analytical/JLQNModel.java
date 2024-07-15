@@ -584,7 +584,7 @@ public class JLQNModel implements JLQNConstants {
      */
     public void setDefaults() {
         resultsOK = false;
-        solverType = SolverType.ALL;
+        solverType = SolverType.LN;
         changed = true;
 
         numberOfProcessors = 1;
