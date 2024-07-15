@@ -530,13 +530,13 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
                     this.oneOption = true;
                 }
                 break;
-            case 1: // And-Join, all pre params (label: Fan In), no post params
-                if (this.preOrPost.equals("Post")) {
+            case 1: // Or-Fork, no pre params, all post params (label: Selection Probability)
+                if (this.preOrPost.equals("Pre")) {
                     initNumberOfPrecedences(1);
                     this.numCol = 2;
                     this.oneOption = true;
                 } else {
-                    this.parameterLabel = "Fan In";
+                    this.parameterLabel = "Selection Probability";
                 }
                 break;
             case 2: // Or-Join, no params at all
@@ -555,13 +555,13 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
                     this.parameterLabel = "Fan Out";
                 }
                 break;
-            case 4: // Or-Fork, no pre params, all post params (label: Selection Probability)
-                if (this.preOrPost.equals("Pre")) {
+            case 4: // And-Join, all pre params (label: Fan In), no post params
+                if (this.preOrPost.equals("Post")) {
                     initNumberOfPrecedences(1);
                     this.numCol = 2;
                     this.oneOption = true;
                 } else {
-                    this.parameterLabel = "Selection Probability";
+                    this.parameterLabel = "Fan In";
                 }
                 break;
             case 5: // Loop, no pre params, 1 post param (label: count)

@@ -197,7 +197,7 @@ public class SetLayeredNetwork {
                         associatedTask.addPrecedence(sequence);
                     }
                     break;
-                case 1: // AND JOIN
+                case 1: // OR FORK
                     Matrix selectionProbabilityParam = new Matrix(1, postActs.length);
                     for (int i = 0; i < postActs.length; i++) {
                         selectionProbabilityParam.set(0, i, postParams[i]);
@@ -217,7 +217,7 @@ public class SetLayeredNetwork {
                     ActivityPrecedence andFork = ActivityPrecedence.AndFork(preActs[0],Arrays.asList(postActs), fanOutParam);
                     associatedTask.addPrecedence(andFork);
                     break;
-                case 4: // OR FORK
+                case 4: // AND JOIN
                     Matrix fanInParam = new Matrix(1, preActs.length);
                     for (int i = 0; i < preActs.length; i++) {
                         fanInParam.set(0, i, preParams[i]);

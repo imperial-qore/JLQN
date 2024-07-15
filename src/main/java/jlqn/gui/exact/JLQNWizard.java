@@ -134,7 +134,7 @@ public class JLQNWizard extends Wizard {
     };
 
     //GUI listener to save model to a file
-    private AbstractJMTAction FILE_SAVE = new AbstractJMTAction("Save...") {
+    private AbstractJMTAction FILE_SAVE = new AbstractJMTAction("Save as ...") {
 
         private static final long serialVersionUID = 1L;
 

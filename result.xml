@@ -50,8 +50,38 @@
             <entry name="E5" type="NONE"/>
             <task-activities>
                 <activity bound-to-entry="E5" call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="5.0" name="A5"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A6"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A7"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A8"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A9"/>
+                <precedence>
+                    <pre>
+                        <activity name="A5"/>
+                    </pre>
+                    <post>
+                        <activity name="A6"/>
+                    </post>
+                </precedence>
+                <precedence>
+                    <pre>
+                        <activity name="A6"/>
+                    </pre>
+                    <post-OR>
+                        <activity name="A7" prob="0.5"/>
+                        <activity name="A8" prob="0.5"/>
+                    </post-OR>
+                </precedence>
+                <precedence>
+                    <pre-OR>
+                        <activity name="A7"/>
+                        <activity name="A8"/>
+                    </pre-OR>
+                    <post>
+                        <activity name="A9"/>
+                    </post>
+                </precedence>
                 <reply-entry name="E5">
-                    <reply-activity name="A5"/>
+                    <reply-activity name="A9"/>
                 </reply-entry>
             </task-activities>
         </task>
