@@ -949,7 +949,7 @@ public class JLQNModel implements JLQNConstants {
 
         // load processors
         if (processorNode != null) {
-            if (!loadProcessores(processorNode)) {
+            if (!loadProcessors(processorNode)) {
                 //classes loading failed!
                 return false;
             }
@@ -1009,7 +1009,7 @@ public class JLQNModel implements JLQNConstants {
     }
 
 
-    public boolean loadProcessores(Node processorNode) {
+    public boolean loadProcessors(Node processorNode) {
         numberOfProcessors = Integer.parseInt(((Element) processorNode).getAttribute("number"));
         processorNames = new String[numberOfProcessors];
         processorScheduling = new int[numberOfProcessors];
