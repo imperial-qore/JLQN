@@ -34,14 +34,15 @@ public class Jlqn {
 
 	public static void main(String[] args) throws Exception {
 		if (args.length < 1) {
-			help();
+			new JLQNWizard();
+		} else {
+			File model = new File(args[0]);
+			if (!model.isFile()) {
+				System.err.print("Invalid model file: " + model.getAbsolutePath());
+				System.exit(1);
+			}
+			new JLQNWizard(args[0]);
 		}
-		File model = new File(args[0]);
-		if (!model.isFile()) {
-			System.err.print("Invalid model file: " + model.getAbsolutePath());
-			System.exit(1);
-		}
-		new JLQNWizard(args[0]);
 	}
 
 }
