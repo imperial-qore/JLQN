@@ -1,0 +1,7 @@
+/.idea/
+/target/classes/
+/target/generated-sources/
+/target/maven-archiver/
+/target/test-classes/
+/target/jlqn-1.0.jar
+/target/jlqn-singlejar.jar
