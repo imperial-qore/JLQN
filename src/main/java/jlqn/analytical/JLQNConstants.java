@@ -70,7 +70,7 @@ public interface JLQNConstants {
     };
 
     public enum SolverType {
-        LQNS, LN
+        ALL, LQNS, LN
     }
     public static final String[] CALL_TYPES = {
       "Synchronous", "Asynchronous", "Forwarding"

@@ -3,6 +3,7 @@ package jlqn.gui.exact;
 import jline.lang.constant.SolverType;
 import jline.lang.layered.LayeredNetwork;
 import jline.solvers.LayeredNetworkAvgTable;
+import jline.solvers.Solver;
 import jline.solvers.SolverOptions;
 import jline.solvers.ln.SolverLN;
 import jline.solvers.lqns.SolverLQNS;
@@ -49,7 +50,7 @@ public class JLQNWizard extends Wizard {
 
     private JLabel helpLabel;
 
-    private ModelLoader modelLoader = new ModelLoader(ModelLoader.JLQN, ModelLoader.JLQN_SAVE);
+    private ModelLoader modelLoader = new ModelLoader(ModelLoader.JLQN, ModelLoader.ALL_SAVE);
 
     //A link to the last modified model's temporary file - used to display synopsis
     private File tempFile = null;
@@ -434,7 +435,7 @@ public class JLQNWizard extends Wizard {
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            createSolutionWindow(lnAvgTable);
+                            createSolutionWindow(lnAvgTable, SolverType.LN);
                         }
                     });
                 } catch (Exception e) {
@@ -454,7 +455,7 @@ public class JLQNWizard extends Wizard {
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            createSolutionWindow(lqnsAvgTable);
+                            createSolutionWindow(lqnsAvgTable, SolverType.LQNS);
                         }
                     });
                 }  catch (Exception e) {
@@ -467,19 +468,53 @@ public class JLQNWizard extends Wizard {
                 }
                 break;
             default:
+                try {
+                    SolverLN lnSolver = new SolverLN(lqnmodel, new SolverOptions(SolverType.LN));
+                    final LayeredNetworkAvgTable lnAvgTable = (LayeredNetworkAvgTable) lnSolver.getEnsembleAvg(); // Create this
+                    SolverLQNS lqnsSolver = new SolverLQNS(lqnmodel);
+                    final LayeredNetworkAvgTable lqnsAvgTable = lqnsSolver.getAvgTable();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createSolutionWindow(lnAvgTable, SolverType.LN, lqnsAvgTable, SolverType.LQNS);
+                        }
+                    });
+                } catch (Exception e) {
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+                    String exceptionAsString = sw.toString();
+                    JTextArea msg = new JTextArea(exceptionAsString);
+                    msg.setEditable(false);
+                    JOptionPane.showMessageDialog(this, msg, "Solver LN Exception", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
         }
         updatePanels();
         currentPanel.gotFocus();
     }
 
-    private void createSolutionWindow(LayeredNetworkAvgTable avgTable) {
+    private void createSolutionWindow(LayeredNetworkAvgTable avgTable1, SolverType solverType1, LayeredNetworkAvgTable avgTable2, SolverType solverType2) {
         JTabbedPane jtp = new JTabbedPane();
         String resultTitle = "JLQN Solutions";
         JFrame solutionWindow = new JFrame(resultTitle);
         solutionWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         solutionWindow.getContentPane().add(jtp);
         solutionWindow.setIconImage(this.getIconImage());
-        jtp.add(new AvgTablePanel(this, avgTable));
+        jtp.add(new AvgTablePanel(this, avgTable1, solverType1));
+        jtp.add(new AvgTablePanel(this, avgTable2, solverType2));
+        Rectangle rect = this.getBounds();
+        solutionWindow.setBounds(rect.x + 20, rect.y + 20, rect.width, rect.height);
+        solutionWindow.setVisible(true);
+    }
+
+    private void createSolutionWindow(LayeredNetworkAvgTable avgTable, SolverType solverType) {
+        JTabbedPane jtp = new JTabbedPane();
+        String resultTitle = "JLQN Solutions";
+        JFrame solutionWindow = new JFrame(resultTitle);
+        solutionWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        solutionWindow.getContentPane().add(jtp);
+        solutionWindow.setIconImage(this.getIconImage());
+        jtp.add(new AvgTablePanel(this, avgTable, solverType));
 //        jtp.add(new QueueLenPanel(this, avgTable));
 //        jtp.add(new UtilizationPanel(this, avgTable));
 //        jtp.add(new RespTimePanel(this, avgTable));

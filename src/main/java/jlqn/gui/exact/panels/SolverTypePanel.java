@@ -24,7 +24,7 @@ public class SolverTypePanel extends JPanel {
     public void actionPerformed(ActionEvent e) {
       solverTypes = (JComboBox<String>) e.getSource();
       String solverType = (String) solverTypes.getSelectedItem();
-      JLQNConstants.SolverType type = JLQNConstants.SolverType.LN;
+      JLQNConstants.SolverType type = JLQNConstants.SolverType.ALL;
 
       switch (solverType) {
         case "LQNS":
@@ -33,7 +33,10 @@ public class SolverTypePanel extends JPanel {
         case "LN":
           type = JLQNConstants.SolverType.LN;
           break;
+        case "Default":
         default:
+          type = JLQNConstants.SolverType.ALL;
+          break;
       }
       JLQNModel data = jw.getData();
       synchronized (data) {
@@ -71,7 +74,7 @@ public class SolverTypePanel extends JPanel {
     return solverLabel;
   }
   private JComponent solverList() {
-    String[] solverNameList = {"LN", "LQNS"};
+    String[] solverNameList = {"Default", "LN", "LQNS"};
     solverTypes = new JComboBox<>(solverNameList);
 
     Dimension d = new Dimension(160, 30);

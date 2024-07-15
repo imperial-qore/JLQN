@@ -1,5 +1,6 @@
 package jlqn.gui.exact.panels;
 
+import jline.lang.constant.SolverType;
 import jline.solvers.LayeredNetworkAvgTable;
 import jlqn.analytical.JLQNConstants;
 import jmt.gui.exact.table.ExactTableModel;
@@ -16,11 +17,11 @@ public class AvgTablePanel extends SolutionPanel {
     private final List<List<Double>> residTimes;
     private final List<List<Double>> throughput;
 
-    public AvgTablePanel(JLQNWizard jw, LayeredNetworkAvgTable avgTable) {
+    public AvgTablePanel(JLQNWizard jw, LayeredNetworkAvgTable avgTable, SolverType solver) {
         super(jw);
         queueLength = new ArrayList<>();
-        helpText = "<html>Average Results</html>";
-        name = "Average Results";
+        helpText = "<html>"+solver.name()+"</html>";
+        name = solver.name();
         List<Double> avgTableQLen = avgTable.getQLen();
         List<Double> avgTableUtil = avgTable.getUtil();
         List<Double> avgTableRespT = avgTable.getRespT();
@@ -137,7 +138,8 @@ public class AvgTablePanel extends SolutionPanel {
             }
 
             if (d == null || Double.isNaN(d)) {
-                return new String("·");
+                //return new String("·");
+                return new String("---");
             } else {
                 return new Double(d);
             }

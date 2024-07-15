@@ -7,8 +7,6 @@ import org.w3c.dom.NodeList;
 
 import java.util.*;
 
-import static jlqn.analytical.JLQNConstants.SolverType.LN;
-
 public class JLQNModel implements JLQNConstants {
     /** PROCESSOR **/
     private int numberOfProcessors;
@@ -586,7 +584,7 @@ public class JLQNModel implements JLQNConstants {
      */
     public void setDefaults() {
         resultsOK = false;
-        solverType = LN;
+        solverType = SolverType.ALL;
         changed = true;
 
         numberOfProcessors = 1;
