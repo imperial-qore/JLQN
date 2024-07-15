@@ -1181,7 +1181,7 @@ public class JLQNModel implements JLQNConstants {
                 activityTask[activityNum] = activityTaskName;
             }
 
-            activityHostDemand[activityNum] = Double.parseDouble(current.getAttribute(JLQNDocumentConstants.DOC_ACTIVITY_THINK_TIME_MEAN));
+            activityHostDemand[activityNum] = Double.parseDouble(current.getAttribute(JLQNDocumentConstants.DOC_ACTIVITY_DEMAND_MEAN));
             activityNum++;
         }
         return true;
@@ -1235,7 +1235,7 @@ public class JLQNModel implements JLQNConstants {
             }
             callType[callNum] = j;
 
-            callMeanRepeatTimes[callNum] = Double.parseDouble(current.getAttribute(JLQNDocumentConstants.DOC_CALL_MEAN_REPEAT_TIME));
+            callMeanRepeatTimes[callNum] = Double.parseDouble(current.getAttribute(JLQNDocumentConstants.DOC_CALL_MEAN_REPEAT));
             callNum++;
         }
         return true;

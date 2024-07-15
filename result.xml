@@ -50,10 +50,14 @@
             <entry name="E5" type="NONE"/>
             <task-activities>
                 <activity bound-to-entry="E5" call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="5.0" name="A5"/>
-                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A6"/>
-                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A7"/>
-                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A8"/>
-                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A9"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="6.0" name="A6"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="7.0" name="A7"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="8.0" name="A8"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="9.0" name="A9"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="10.0" name="A10"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="11.0" name="A11"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="12.0" name="A12"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="13.0" name="A13"/>
                 <precedence>
                     <pre>
                         <activity name="A5"/>
@@ -80,8 +84,34 @@
                         <activity name="A9"/>
                     </post>
                 </precedence>
+                <precedence>
+                    <pre>
+                        <activity name="A9"/>
+                    </pre>
+                    <post>
+                        <activity name="A10"/>
+                    </post>
+                </precedence>
+                <precedence>
+                    <pre>
+                        <activity name="A10"/>
+                    </pre>
+                    <post-AND>
+                        <activity name="A11"/>
+                        <activity name="A12"/>
+                    </post-AND>
+                </precedence>
+                <precedence>
+                    <pre-AND quorum="1.0">
+                        <activity name="A11"/>
+                        <activity name="A12"/>
+                    </pre-AND>
+                    <post>
+                        <activity name="A13"/>
+                    </post>
+                </precedence>
                 <reply-entry name="E5">
-                    <reply-activity name="A9"/>
+                    <reply-activity name="A13"/>
                 </reply-entry>
             </task-activities>
         </task>

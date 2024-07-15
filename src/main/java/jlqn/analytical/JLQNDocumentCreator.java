@@ -177,7 +177,7 @@ public class JLQNDocumentCreator {
     activityElement = root.createElement("activity");
     activityElement.setAttribute(JLQNDocumentConstants.DOC_ACTIVITY_NAME, activityNames[activityNum]);
     activityElement.setAttribute(JLQNDocumentConstants.DOC_ACTIVITY_TASK, activityTask[activityNum]);
-    activityElement.setAttribute(JLQNDocumentConstants.DOC_ACTIVITY_THINK_TIME_MEAN, Double.toString(activityHostDemand[activityNum]));
+    activityElement.setAttribute(JLQNDocumentConstants.DOC_ACTIVITY_DEMAND_MEAN, Double.toString(activityHostDemand[activityNum]));
     return activityElement;
   }
 
@@ -243,7 +243,7 @@ public class JLQNDocumentCreator {
     callElement.setAttribute(JLQNDocumentConstants.DOC_CALL_ACTIVITY, callActivity[callNum]);
     callElement.setAttribute(JLQNDocumentConstants.DOC_CALL_ENTRY, callEntry[callNum]);
     callElement.setAttribute(JLQNDocumentConstants.DOC_CALL_TYPE, CALL_TYPES[callType[callNum]]);
-    callElement.setAttribute(JLQNDocumentConstants.DOC_CALL_MEAN_REPEAT_TIME, Double.toString(callMeanRepeatTimes[callNum]));
+    callElement.setAttribute(JLQNDocumentConstants.DOC_CALL_MEAN_REPEAT, Double.toString(callMeanRepeatTimes[callNum]));
     return callElement;
   }
 

@@ -63,8 +63,8 @@ public interface JLQNConstants {
             "SEQUENCE",
             "OR FORK",
             "OR JOIN",
-            "AND JOIN",
             "AND FORK",
+            "AND JOIN",
             "LOOP",
 //            "CACHE_ACCESS",
     };

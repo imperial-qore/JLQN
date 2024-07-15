@@ -27,14 +27,14 @@ public class JLQNDocumentConstants {
   public static final String DOC_ACTIVITY_NUMBER = "number";
   public static final String DOC_ACTIVITY_NAME = "name";
   public static final String DOC_ACTIVITY_TASK = "task";
-  public static final String DOC_ACTIVITY_THINK_TIME_MEAN = "think_time_mean";
-  public static final String DOC_ACTIVITY_THINK_TIME_SCV = "think_time_scv";
+  public static final String DOC_ACTIVITY_DEMAND_MEAN = "host_demand_mean";
+  public static final String DOC_ACTIVITY_DEMAND_SCV = "host_demand_scv";
   public static final String DOC_CALL_NUMBER = "number";
   public static final String DOC_CALL_NAME = "name";
   public static final String DOC_CALL_ACTIVITY = "activity";
   public static final String DOC_CALL_ENTRY = "entry";
   public static final String DOC_CALL_TYPE = "type";
-  public static final String DOC_CALL_MEAN_REPEAT_TIME = "mean_repeat_time";
+  public static final String DOC_CALL_MEAN_REPEAT = "mean_repeat";
 
   public static final String DOC_PRECEDENCE_NUMBER = "number";
   public static final String DOC_PRECEDENCE_TYPE = "type";
