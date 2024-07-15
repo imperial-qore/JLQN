@@ -3,5 +3,6 @@
 /target/generated-sources/
 /target/maven-archiver/
 /target/test-classes/
-/target/jlqn-1.0.jar
 /target/site/
+/target/jlqn-1.0.jar
+
