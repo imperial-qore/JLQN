@@ -37,7 +37,7 @@ import jmt.framework.gui.wizard.WizardPanel;
 import jmt.gui.common.CommonConstants;
 import jmt.gui.common.JMTImageLoader;
 import jlqn.gui.panels.*;
-import jmt.gui.exact.table.*;
+import jmt.gui.table.*;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

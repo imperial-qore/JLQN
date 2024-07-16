@@ -48,6 +48,10 @@
     </build>
     <repositories>
         <repository>
+            <id>local-repo</id>
+            <url>file:${project.basedir}/repo</url>
+        </repository>
+        <repository>
             <id>central</id>
             <url>https://repo.maven.apache.org/maven2</url>
             <releases>

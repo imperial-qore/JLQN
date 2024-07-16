@@ -36,9 +36,9 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 import jmt.framework.gui.help.HoverHelp;
-import jmt.gui.exact.table.DisabledCellRenderer;
-import jmt.gui.exact.table.ExactTable;
-import jmt.gui.exact.table.ExactTableModel;
+import jmt.gui.table.DisabledCellRenderer;
+import jmt.gui.table.ExactTable;
+import jmt.gui.table.ExactTableModel;
 
 /**
 

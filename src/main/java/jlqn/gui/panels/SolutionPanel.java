@@ -31,7 +31,7 @@ import javax.swing.*;
 import jmt.framework.gui.help.HoverHelp;
 import jmt.framework.gui.wizard.WizardPanel;
 import jmt.gui.common.CommonConstants;
-import jmt.gui.exact.table.ExactTableModel;
+import jmt.gui.table.ExactTableModel;
 import jlqn.gui.table.JLQNResultsTable;
 import jlqn.model.JLQNModel;
 import jlqn.gui.JLQNWizard;

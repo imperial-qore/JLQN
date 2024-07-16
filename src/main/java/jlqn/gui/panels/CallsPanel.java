@@ -35,9 +35,12 @@ import jmt.framework.gui.table.editors.ComboBoxCellEditor;
 import jmt.framework.gui.wizard.WizardPanel;
 import jmt.gui.common.CommonConstants;
 import jmt.gui.common.JMTImageLoader;
-import jmt.gui.exact.table.*;
+import jmt.gui.table.*;
 
 import jlqn.gui.JLQNWizard;
+import jmt.gui.table.ComboBoxCell;
+import jmt.gui.table.DisabledCellRenderer;
+import jmt.gui.table.ListOp;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

@@ -29,7 +29,7 @@ import jline.lang.constant.SolverType;
 import jline.solvers.LayeredNetworkAvgTable;
 import jlqn.common.JLQNConstants;
 import jlqn.gui.panels.SolutionPanel;
-import jmt.gui.exact.table.ExactTableModel;
+import jmt.gui.table.ExactTableModel;
 import jlqn.gui.JLQNWizard;
 
 import java.util.ArrayList;
