@@ -26,7 +26,9 @@ package jlqn.gui.panels;
  * Description of modifications: repurposed for LQN models
  */
 
+import jline.lang.layered.LayeredNetwork;
 import jlqn.model.JLQNModel;
+import jlqn.model.SetLayeredNetwork;
 import jmt.framework.data.ArrayUtils;
 import jmt.framework.gui.help.HoverHelp;
 import jmt.framework.gui.table.editors.ButtonCellEditor;
@@ -37,7 +39,7 @@ import jmt.gui.table.*;
 
 import jlqn.common.JLQNConstants;
 import jlqn.gui.JLQNWizard;
-
+import jline.solvers.ln.SolverLN;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -64,12 +66,14 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
     private static final long serialVersionUID = 1L;
 
     // Column numbers
-    private final static int NUM_COLS = 5;
-    private final static int COL_NAME = 0;
-    private final static int COL_SCHEDULING = 1;
-    private final static int COL_MULTIPLICITY = 2;
-    private final static int COL_SPEED_FACTOR = 3;
-    private final static int COL_DELETE_BUTTON = 4;
+    private final static int NUM_COLS = 6;
+    private final static int COL_NAME = 1;
+    private final static int COL_SCHEDULING = 2;
+    private final static int COL_MULTIPLICITY = 3;
+    private final static int COL_SPEED_FACTOR = 4;
+    private final static int COL_VIEW_WIZ = 5;
+    private final static int COL_VIEW_GRAPH = 6;
+    private final static int COL_DELETE_BUTTON = 0;
 
     private HoverHelp help;
     private static final String helpText = "<html>In this panel you can define the number of processors in the system and their properties.<br><br>"
@@ -197,6 +201,37 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         deleting = false;
     }
 
+    private AbstractAction viewEnsembleLayerWiz = new AbstractAction("") {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
+
+        {
+            putValue(Action.SHORT_DESCRIPTION, "View");
+            //putValue(Action.NAME, "View");
+            //          putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("toJSIM", new Dimension(30,30)));
+            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JSIMIcon", new Dimension(20,20)));
+        }
+
+        public void actionPerformed(ActionEvent e) {}
+    };
+
+    private AbstractAction viewEnsembleLayerGraph = new AbstractAction("") {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
+
+        {
+            putValue(Action.SHORT_DESCRIPTION, "View");
+            //putValue(Action.NAME, "View");
+            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JMODELIcon", new Dimension(20,20)));
+        }
+
+        public void actionPerformed(ActionEvent e) {}
+    };
+
     private class ProcessorTable extends ExactTable {
 
         /**
@@ -209,6 +244,10 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         ComboBoxCell processorSchedulingComboBoxCell;
         ButtonCellEditor deleteButtonCellRenderer;
         JButton deleteButton;
+        ButtonCellEditor viewWizButtonCellRenderer;
+        ButtonCellEditor viewGraphButtonCellRenderer;
+        JButton viewWizButton;
+        JButton viewGraphButton;
 
         //END Federico Dall'Orso 8/3/2005
 
@@ -220,13 +259,18 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
 
             processorSchedulingComboBoxCell = new ComboBoxCell(PROCESSOR_SCHEDULING_TYPENAMES);
 
+            //viewGraphButton = new JButton(viewEnsembleLayerGraph);
+            viewWizButton = new JButton(viewEnsembleLayerWiz);
             deleteButton = new JButton(deleteOneProcessor);
+            //viewGraphButtonCellRenderer = new ButtonCellEditor(viewGraphButton);
+            viewWizButtonCellRenderer = new ButtonCellEditor(viewWizButton);
             deleteButtonCellRenderer = new ButtonCellEditor(deleteButton);
+
+            enableWizViews();
+            //enableGraphViews();
             enableDeletes();
             rowHeader.setRowHeight(CommonConstants.ROW_HEIGHT);
             setRowHeight(CommonConstants.ROW_HEIGHT);
-            //END Federico Dall'Orso 8/3/2005
-
 
             JComboBox<String> processorSchedulingBox = new JComboBox<String>(PROCESSOR_SCHEDULING_TYPENAMES);
             processorSchedulingCellEditor = new DefaultCellEditor(processorSchedulingBox);
@@ -269,6 +313,43 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             }
         }
 
+        private void enableWizViews() {
+            viewEnsembleLayerWiz.setEnabled(true);
+            /*It seems the only way to implement row deletion...*/
+            this.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if ((columnAtPoint(e.getPoint()) == COL_VIEW_WIZ) && getRowCount() > 1) {
+                        setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
+                        StringBuilder errors = new StringBuilder();
+                        LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
+                        lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimwView();
+                    }
+                }
+            });
+           // getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(30);
+           // getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(30);
+        }
+
+        private void enableGraphViews() {
+            viewEnsembleLayerGraph.setEnabled(true);
+            /*It seems the only way to implement row deletion...*/
+            this.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if ((columnAtPoint(e.getPoint()) == COL_VIEW_GRAPH) && getRowCount() > 1) {
+                        setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
+                        StringBuilder errors = new StringBuilder();
+                        LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
+                        //System.out.println(rowAtPoint(e.getPoint()));
+                        lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimgView();
+                    }
+                }
+            });
+            //getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(30);
+            //getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(30);
+        }
+
         //BEGIN Federico Dall'Orso 14/3/2005
         /*enables deleting operations with last column's button*/
         private void enableDeletes() {
@@ -277,19 +358,15 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             this.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if ((columnAtPoint(e.getPoint()) == getColumnCount() - 1) && getRowCount() > 1) {
+                    if ((columnAtPoint(e.getPoint()) == COL_DELETE_BUTTON) && getRowCount() > 1) {
                         setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                         deleteSelectedProcessors();
                     }
                 }
             });
-            getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(20);
-            getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(20);
+            getColumnModel().getColumn(COL_DELETE_BUTTON).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE_BUTTON).setMaxWidth(20);
         }
-
-        //END Federico Dall'Orso 14/3/2005
-
-        //new Federico Dall'Orso 8/3/2005
 
         @Override
         public TableCellRenderer getCellRenderer(int row, int column) {
@@ -298,12 +375,15 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                 return processorSchedulingComboBoxCell;
             } else if (column == COL_DELETE_BUTTON) {
                 return deleteButtonCellRenderer;
+            } else if (column == COL_VIEW_WIZ) {
+                return viewWizButtonCellRenderer;
+            } else if (column == COL_VIEW_GRAPH) {
+                return viewGraphButtonCellRenderer;
             } else {
                 return disabledCellRenderer;
             }
         }
 
-        //end Federico Dall'Orso 8/3/2005
 
         @Override
         protected void installKeyboard() {
@@ -334,14 +414,20 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
 ////            super.editingStopped(ce);
 //        }
 
+        void updateViewCommand() {
+            getColumnModel().getColumn(COL_VIEW_WIZ).setMinWidth(30);
+            getColumnModel().getColumn(COL_VIEW_WIZ).setMaxWidth(30);
+            //getColumnModel().getColumn(COL_VIEW_GRAPH).setMinWidth(30);
+            //getColumnModel().getColumn(COL_VIEW_GRAPH).setMaxWidth(30);
+        }
+
         //BEGIN Federico Dall'Orso 14/3/2005
         //NEW
-        //Updates appearence of last column's buttons
+        //Updates appearance of last column's buttons
         void updateDeleteCommand() {
             deleteOneProcessor.setEnabled(numberOfProcessors > 1);
-            getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(20);
-            getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(20);
-
+            getColumnModel().getColumn(0).setMinWidth(20);
+            getColumnModel().getColumn(0).setMaxWidth(20);
         }
 
         //END Federico Dall'Orso 14/3/2005
@@ -400,6 +486,8 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                     return "Multiplicity";
                 case COL_SPEED_FACTOR:
                     return "Speed Factor";
+                case COL_VIEW_WIZ:
+                    //return "Layer";
                 default:
                     return null;
             }
@@ -416,7 +504,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                     return processorMultiplicity[rowIndex];
                 case COL_SPEED_FACTOR:
                     return processorSpeedFactor[rowIndex];
-
+                case COL_VIEW_WIZ:
                 default:
                     return null;
             }
@@ -471,7 +559,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                     }
                     break;
                 }
-
+                case COL_VIEW_WIZ:
                 default:
             }
         }
@@ -485,6 +573,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                     return true;
                 case COL_SPEED_FACTOR:
                     return true;
+                case COL_VIEW_WIZ:
                 default:
                     return false;
             }
@@ -499,23 +588,11 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
 
         processorTable = new ProcessorTable();
 
-        /* and now some Box black magic */
-        //DEK (Federico Granata) 26-09-2003
         Box processorSpinnerBox = Box.createHorizontalBox();
-        //OLD
-        //JLabel spinnerLabel = new JLabel("<html><font size=\"4\">Set the Number of classes (1-" + MAX_CLASSES + "):</font></html>");
-        //NEW
-        //@author Stefano
         JLabel spinnerLabel = new JLabel(DESCRIPTION_PROCESSORS);
 
         processorSpinnerBox.add(spinnerLabel);
-        //END
-        //BEGIN Federico Dall'Orso 9/3/2005
-        //OLD
-		/*
-		classSpinnerBox.add(Box.createGlue());
-		 */
-        //NEW
+
         processorSpinnerBox.add(Box.createHorizontalStrut(10));
         Box numberBox = Box.createVerticalBox();
 
@@ -531,7 +608,6 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         numberBox.setMaximumSize(new Dimension(300, 150));
 
         processorSpinnerBox.add(numberBox);
-        //END  Federico Dall'Orso 9/3/2005
 
         Box processorBox = Box.createVerticalBox();
         processorBox.add(Box.createVerticalStrut(30));
@@ -617,6 +693,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         }
 
         processorSpinner.setValue(new Integer(numberOfProcessors));
+        processorTable.updateViewCommand();
         processorTable.updateDeleteCommand();
     }
 
@@ -711,7 +788,6 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             data.setProcessorMultiplicity(processorMultiplicity);
             data.setProcessorReplicas(processorReplicas);
             data.setProcessorSpeedFactor(processorSpeedFactor);
-
 
             //NEW
             //@author Stefano Omini
