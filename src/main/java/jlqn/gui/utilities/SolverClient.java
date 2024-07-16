@@ -1,3 +1,4 @@
+package jlqn.gui.utilities;
 /**
  * Original source file license header:
  * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
@@ -24,34 +25,15 @@
  * Description of modifications: repurposed for LQN models
  */
 
-package jlqn.commandline;
+import jmt.framework.xml.XMLUtils;
 
-import jlqn.gui.JLQNWizard;
+import java.awt.*;
 
-import java.io.File;
-
-
-public class Jlqn {
-
-	//private static final String OPTION_SEED = "-seed";
-
-	public static void help() {
-		System.err.println("Usage: jlqn.commandline.Jlqn [modelfilename]");
-		//System.err.println("  -seed N : sets the random number seed to N (e.g., N=23000)");
-		System.exit(0);
-	}
-
-	public static void main(String[] args) throws Exception {
-		if (args.length < 1) {
-			new JLQNWizard();
-		} else {
-			File model = new File(args[0]);
-			if (!model.isFile()) {
-				System.err.print("Invalid model file: " + model.getAbsolutePath());
-				System.exit(1);
-			}
-			new JLQNWizard(args[0]);
-		}
-	}
-
+public class SolverClient {
+    private XMLUtils xmlUtils;
+    private Frame owner;
+    public SolverClient(Frame owner) {
+        xmlUtils = new XMLUtils();
+        this.owner = owner;
+    }
 }

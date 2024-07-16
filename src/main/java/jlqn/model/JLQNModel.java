@@ -1,4 +1,6 @@
-package jlqn.analytical;
+package jlqn.model;
+import jlqn.common.JLQNConstants;
+import jlqn.gui.xml.JLQNDocumentConstants;
 import jlqn.util.ArrayUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -829,7 +831,7 @@ public class JLQNModel implements JLQNConstants {
                 continue;
             }
             switch(precedenceType[p]) {
-                case 0:
+                case PRECEDENCE_SEQUENCE:
                     // "SEQUENCE" - pre activity: 1, post activity: >= 1, pre params: 0, post params: 0
                     if (preActs.length > 1) {
                         errors.append(String.format("Precedence \"%d\": SEQUENCE should have 1 pre activity<br>",p + 1));
@@ -839,7 +841,7 @@ public class JLQNModel implements JLQNConstants {
                     }
                     // No checks for post params and pre params because they are not enabled on sequence
                     break;
-                case 1:
+                case PRECEDENCE_OR_FORK:
                     // "OR FORK" - pre activity: 1, post activity: >= 2, pre params: same number as pre activities, post params: 0
                     if (preActs.length != 1) {
                         errors.append(String.format("Precedence \"%d\": OR FORK should have 1 pre activity<br>",p + 1));
@@ -854,7 +856,7 @@ public class JLQNModel implements JLQNConstants {
                         }
                     }
                     break;
-                case 2:
+                case PRECEDENCE_OR_JOIN:
                     // "OR JOIN" - pre activity: >= 2, post activity >= 1, pre params: 0, post params: 0
                     if (preActs.length <= 1) {
                         errors.append(String.format("Precedence \"%d\": OR JOIN should have more than 1 pre activity<br>",p + 1));
@@ -863,7 +865,7 @@ public class JLQNModel implements JLQNConstants {
                         errors.append(String.format("Precedence \"%d\": OR JOIN should have 1 post activity<br>",p + 1));
                     }
                     break;
-                case 3:
+                case PRECEDENCE_AND_FORK:
                     // "AND FORK" - pre activity: 1, post activity >= 2, pre params: 0, post params: same as post acitivty
                     if (preActs.length != 1) {
                         errors.append(String.format("Precedence \"%d\": AND FORK should have 1 pre activity<br>",p + 1));
@@ -878,7 +880,7 @@ public class JLQNModel implements JLQNConstants {
                         }
                     }
                     break;
-                case 4:
+                case PRECEDENCE_AND_JOIN:
                     // "AND JOIN" - pre activity: >= 2, post activity: 1, pre params: same number as pre activity, post params: 0
                     if (preActs.length <= 1) {
                         errors.append(String.format("Precedence \"%d\": AND JOIN should have more than 1 pre activity<br>",p + 1));
@@ -893,7 +895,7 @@ public class JLQNModel implements JLQNConstants {
                         }
                     }
                     break;
-                case 5:
+                case PRECEDENCE_LOOP:
                     // "LOOP" - pre activity: 1, post activity: >= 1, pre params: 0, post params: 1 (number of counts)
                     if (preActs.length != 1) {
                         errors.append(String.format("Precedence \"%d\": LOOP should have 1 pre activity<br>",p + 1));

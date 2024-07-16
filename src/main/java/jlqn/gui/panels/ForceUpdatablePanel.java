@@ -1,4 +1,7 @@
+package jlqn.gui.panels;
+
 /**
+ * Original source file license header:
  * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
 
  * This program is free software; you can redistribute it and/or modify
@@ -16,7 +19,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-package jlqn.gui.exact.panels;
+/**
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
+ */
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,12 +1,13 @@
-package jlqn.analytical;
+package jlqn.model;
 
+import jlqn.gui.xml.JLQNDocumentConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import static jlqn.analytical.JLQNConstants.*;
+import static jlqn.common.JLQNConstants.*;
 
 public class JLQNDocumentCreator {
 

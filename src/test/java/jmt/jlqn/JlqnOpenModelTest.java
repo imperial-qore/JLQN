@@ -1,6 +1,6 @@
 package jmt.jlqn;
 
-import jlqn.analytical.JLQNModel;
+import jlqn.model.JLQNModel;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;

@@ -1,6 +1,6 @@
 package jmt.jlqn;
 
-import jlqn.analytical.JLQNModel;
+import jlqn.model.JLQNModel;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

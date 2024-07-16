@@ -1,6 +1,32 @@
-package jlqn.gui.exact.panels;
+package jlqn.gui.panels;
 
-import jlqn.analytical.JLQNModel;
+/**
+ * Original source file license header:
+ * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
+
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+
+/**
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
+ */
+
+import jlqn.model.JLQNModel;
 import jlqn.util.ArrayUtils;
 import jmt.framework.gui.listeners.AbstractJMTAction;
 import jmt.framework.gui.table.editors.ButtonCellEditor;
@@ -10,8 +36,8 @@ import jmt.gui.common.CommonConstants;
 import jmt.gui.common.JMTImageLoader;
 import jmt.gui.exact.table.*;
 
-import jlqn.analytical.JLQNConstants;
-import jlqn.gui.exact.JLQNWizard;
+import jlqn.common.JLQNConstants;
+import jlqn.gui.JLQNWizard;
 
 
 import javax.swing.*;
@@ -22,6 +48,7 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
+
 
 public final class PrecedenceActivityPanel extends WizardPanel implements JLQNConstants, ForceUpdatablePanel {
     private static final long serialVersionUID = 1L;
@@ -43,7 +70,7 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
 
     private JLQNWizard jw;
     private int numberOfPrecedenceActivities;
-    private PrecedencePanel ppanel;
+    private jlqn.gui.panels.PrecedencePanel ppanel;
     private String[] precedenceActivities;
     private String[] PRECEDENCE_ACTIVITY;
 
@@ -507,7 +534,7 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
     }
 
     public PrecedenceActivityPanel(
-            PrecedencePanel ppanel,
+            jlqn.gui.panels.PrecedencePanel ppanel,
             JLQNWizard jw,
             String preOrPost,
             int rowIndex,
@@ -523,14 +550,14 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
         this.numberOfPrecedenceActivities = this.precedenceActivities.length;
 
         switch (precedenceType) {
-            case 0: // Sequence, no params at all
+            case PRECEDENCE_SEQUENCE: // Sequence, no params at all
                 this.numCol = 2;
                 if (this.preOrPost.equals("Pre")) {
                     initNumberOfPrecedences(1);
                     this.oneOption = true;
                 }
                 break;
-            case 1: // Or-Fork, no pre params, all post params (label: Selection Probability)
+            case PRECEDENCE_OR_FORK: // Or-Fork, no pre params, all post params (label: Selection Probability)
                 if (this.preOrPost.equals("Pre")) {
                     initNumberOfPrecedences(1);
                     this.numCol = 2;
@@ -539,14 +566,14 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
                     this.parameterLabel = "Selection Probability";
                 }
                 break;
-            case 2: // Or-Join, no params at all
+            case PRECEDENCE_OR_JOIN: // Or-Join, no params at all
                 this.numCol = 2;
                 if (this.preOrPost.equals("Post")) {
                     initNumberOfPrecedences(1);
                     this.oneOption = true;
                 }
                 break;
-            case 3: // And-Fork, all post params, no post params
+            case PRECEDENCE_AND_FORK: // And-Fork, all post params, no post params
                 if (this.preOrPost.equals("Pre")) {
                     initNumberOfPrecedences(1);
                     this.numCol = 2;
@@ -555,7 +582,7 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
                     this.parameterLabel = "Fan Out";
                 }
                 break;
-            case 4: // And-Join, all pre params (label: Fan In), no post params
+            case PRECEDENCE_AND_JOIN: // And-Join, all pre params (label: Fan In), no post params
                 if (this.preOrPost.equals("Post")) {
                     initNumberOfPrecedences(1);
                     this.numCol = 2;
@@ -564,7 +591,7 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
                     this.parameterLabel = "Fan In";
                 }
                 break;
-            case 5: // Loop, no pre params, 1 post param (label: count)
+            case PRECEDENCE_LOOP: // Loop, no pre params, 1 post param (label: count)
                 if (this.preOrPost.equals("Pre")) {
                     initNumberOfPrecedences(1);
                     this.numCol = 2;

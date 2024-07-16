@@ -1,4 +1,5 @@
 /**
+ * Original source file license header:
  * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
 
  * This program is free software; you can redistribute it and/or modify
@@ -16,7 +17,14 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-package jlqn.analytical;
+/**
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
+ */
+
+package jlqn.common;
 
 /**
  * This class contains some constants for exact models.
@@ -69,12 +77,20 @@ public interface JLQNConstants {
 //            "CACHE_ACCESS",
     };
 
+    public static int PRECEDENCE_SEQUENCE = 0;
+    public static int PRECEDENCE_OR_FORK = 1;
+    public static int PRECEDENCE_OR_JOIN = 2;
+    public static int PRECEDENCE_AND_FORK = 3;
+    public static int PRECEDENCE_AND_JOIN = 4;
+    public static int PRECEDENCE_LOOP = 5;
+
     public enum SolverType {
         ALL, LQNS, LN
     }
     public static final String[] CALL_TYPES = {
       "Synchronous", "Asynchronous", "Forwarding"
     };
+
     //ArrayList<String> TASK_NAME = new ArrayList<String>();
     public static final int TASK_REF = 0;
     public static final int TASK_FCFS = 1;

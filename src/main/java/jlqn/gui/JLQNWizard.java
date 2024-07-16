@@ -1,16 +1,39 @@
-package jlqn.gui.exact;
+package jlqn.gui;
+/**
+ * Original source file license header:
+ * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+
+/**
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
+ */
 import jline.lang.constant.SolverType;
 import jline.lang.layered.LayeredNetwork;
 import jline.solvers.LayeredNetworkAvgTable;
-import jline.solvers.Solver;
 import jline.solvers.SolverOptions;
 import jline.solvers.ln.SolverLN;
 import jline.solvers.lqns.SolverLQNS;
-import jlqn.analytical.JLQNModel;
-import jlqn.analytical.SetLayeredNetwork;
-import jlqn.gui.exact.panels.*;
-import jlqn.gui.exact.utilities.SolverClient;
+import jlqn.model.JLQNModel;
+import jlqn.model.SetLayeredNetwork;
+import jlqn.gui.panels.*;
+import jlqn.gui.utilities.SolverClient;
 import jmt.framework.gui.components.JMTMenuBar;
 import jmt.framework.gui.components.JMTToolBar;
 import jmt.framework.gui.help.HoverHelp;
@@ -20,14 +43,13 @@ import jmt.framework.gui.wizard.Wizard;
 import jmt.framework.gui.wizard.WizardPanel;
 import jmt.gui.common.CommonConstants;
 import jmt.gui.common.JMTImageLoader;
-import jlqn.gui.exact.panels.AboutDialogFactory;
+import jlqn.gui.panels.AboutDialogFactory;
 import jmt.manual.ChapterIdentifier;
 import jmt.manual.PDFViewer;
 
 
 import jmt.gui.common.panels.WarningWindow;
-import jlqn.gui.common.xml.ModelLoader;
-import jlqn.gui.common.xml.ModelLoader.JmtFileFilter;
+import jlqn.gui.xml.JLQNModelLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +72,7 @@ public class JLQNWizard extends Wizard {
 
     private JLabel helpLabel;
 
-    private ModelLoader modelLoader = new ModelLoader(ModelLoader.JLQN, ModelLoader.ALL_SAVE);
+    private JLQNModelLoader modelLoader = new JLQNModelLoader(JLQNModelLoader.JLQN, JLQNModelLoader.ALL_SAVE);
 
     //A link to the last modified model's temporary file - used to display synopsis
     private File tempFile = null;
@@ -90,7 +112,7 @@ public class JLQNWizard extends Wizard {
         addPanel(new ProcessorsPanel(this));
         addPanel(new TasksPanel(this));
         addPanel(new ActivitiesPanel(this));
-        addPanel(new EntriesPanel(this));
+        addPanel(new jlqn.gui.panels.EntriesPanel(this));
         addPanel(new CallsPanel(this));
         addPanel(new PrecedencePanel(this));
 
@@ -350,11 +372,11 @@ public class JLQNWizard extends Wizard {
         }
         int retval = modelLoader.saveModel(data, this, null);
         switch (retval) {
-            case ModelLoader.SUCCESS:
+            case JLQNModelLoader.SUCCESS:
                 data.resetChanged();
                 updateTitle(modelLoader.getSelectedFile().getName());
                 break;
-            case ModelLoader.FAILURE:
+            case JLQNModelLoader.FAILURE:
                 JOptionPane.showMessageDialog(this, modelLoader.getFailureMotivation(), "Error", JOptionPane.ERROR_MESSAGE);
                 break;
         }
@@ -371,14 +393,14 @@ public class JLQNWizard extends Wizard {
         JLQNModel newdata = new JLQNModel();
         int retval = modelLoader.loadModel(newdata, this, null);
         switch (retval) {
-            case ModelLoader.SUCCESS:
-            case ModelLoader.WARNING:
+            case JLQNModelLoader.SUCCESS:
+            case JLQNModelLoader.WARNING:
                 data = newdata;
                 currentPanel.gotFocus();
                 updateTitle(modelLoader.getSelectedFile().getName());
                 tabbedPane.setSelectedIndex(0);
                 break;
-            case ModelLoader.FAILURE:
+            case JLQNModelLoader.FAILURE:
                 JOptionPane.showMessageDialog(this, modelLoader.getFailureMotivation(), "Error", JOptionPane.ERROR_MESSAGE);
                 break;
         }
@@ -386,7 +408,7 @@ public class JLQNWizard extends Wizard {
         updatePanels();
 
         // Shows warnings if any
-        if (retval == ModelLoader.WARNING) {
+        if (retval == JLQNModelLoader.WARNING) {
             new WarningWindow(modelLoader.getLastWarnings(), this, modelLoader.getInputFileFormat(), JLQN).show();
         }
     }

@@ -1,7 +1,7 @@
-package jlqn.gui.exact.panels;
+package jlqn.gui.panels;
 
 /**
- * Original version:
+ * Original source file license header:
  * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
 
  * This program is free software; you can redistribute it and/or modify
@@ -17,6 +17,13 @@ package jlqn.gui.exact.panels;
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+
+/**
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
  */
 
 import java.awt.BorderLayout;
@@ -132,7 +139,6 @@ public class AboutDialogFactory {
      * Creates a new modal JMTDialog with specified owner and with panel inside, displaying current text.
      * @param owner owner of the dialog. If it is null or invalid, created dialog will not
      * be modal
-     * @param title title of dialog to be created
      * @param autoclose to automatically close the dialog after a timeout
      * @return created dialog
      */

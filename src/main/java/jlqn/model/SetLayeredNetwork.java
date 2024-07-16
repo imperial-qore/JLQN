@@ -1,4 +1,4 @@
-package jlqn.analytical;
+package jlqn.model;
 
 import jline.lang.constant.SchedStrategy;
 import jline.lang.layered.*;
@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import static jlqn.common.JLQNConstants.*;
 
 public class SetLayeredNetwork {
     public static LayeredNetwork SetLayeredNetworkFromJLQN(JLQNModel model, StringBuilder error) {
@@ -182,7 +184,7 @@ public class SetLayeredNetwork {
             String associatedTaskName = activityParentTaskMap.get(preActs[0]); //
             Task associatedTask = taskMap.get(associatedTaskName);
             switch(precedenceTypes[p]) {
-                case 0: // SEQUENCE
+                case PRECEDENCE_SEQUENCE: // SEQUENCE
                     int preActsLength = preActs.length;
                     // Leading activity is controlled to only be 1 activity
                     preActs = ArrayUtils.resize(preActs,preActs.length + postActs.length, null);
@@ -197,7 +199,7 @@ public class SetLayeredNetwork {
                         associatedTask.addPrecedence(sequence);
                     }
                     break;
-                case 1: // OR FORK
+                case PRECEDENCE_OR_FORK: // OR FORK
                     Matrix selectionProbabilityParam = new Matrix(1, postActs.length);
                     for (int i = 0; i < postActs.length; i++) {
                         selectionProbabilityParam.set(0, i, postParams[i]);
@@ -205,11 +207,11 @@ public class SetLayeredNetwork {
                     ActivityPrecedence orFork = ActivityPrecedence.OrFork(preActs[0],Arrays.asList(postActs), selectionProbabilityParam);
                     associatedTask.addPrecedence(orFork);
                     break;
-                case 2: // OR JOIN
+                case PRECEDENCE_OR_JOIN: // OR JOIN
                     ActivityPrecedence orJoin = ActivityPrecedence.OrJoin(Arrays.asList(preActs), postActs[0]);
                     associatedTask.addPrecedence(orJoin);
                     break;
-                case 3: // AND FORK
+                case PRECEDENCE_AND_FORK: // AND FORK
                     Matrix fanOutParam = new Matrix(1, postActs.length);
                     for (int i = 0; i < postActs.length; i++) {
                         fanOutParam.set(0, i, postParams[i]);
@@ -217,7 +219,7 @@ public class SetLayeredNetwork {
                     ActivityPrecedence andFork = ActivityPrecedence.AndFork(preActs[0],Arrays.asList(postActs), fanOutParam);
                     associatedTask.addPrecedence(andFork);
                     break;
-                case 4: // AND JOIN
+                case PRECEDENCE_AND_JOIN: // AND JOIN
                     Matrix fanInParam = new Matrix(1, preActs.length);
                     for (int i = 0; i < preActs.length; i++) {
                         fanInParam.set(0, i, preParams[i]);
@@ -225,7 +227,7 @@ public class SetLayeredNetwork {
                     ActivityPrecedence andJoin = ActivityPrecedence.AndJoin(Arrays.asList(preActs), postActs[0], fanInParam);
                     associatedTask.addPrecedence(andJoin);
                     break;
-                case 5: // LOOP
+                case PRECEDENCE_LOOP: // LOOP
                     Matrix loopParam = new Matrix(postParams[0]);
                     ActivityPrecedence loop = ActivityPrecedence.Loop(preActs[0],Arrays.asList(postActs), loopParam);
                     associatedTask.addPrecedence(loop);

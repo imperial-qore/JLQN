@@ -1,7 +1,7 @@
-package jlqn.gui.common.xml;
+package jlqn.gui.xml;
 
 /**
- * Original version:
+ * Original source file license header:
  * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
 
  * This program is free software; you can redistribute it and/or modify
@@ -19,6 +19,14 @@ package jlqn.gui.common.xml;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
+ */
+
+
 import java.awt.Component;
 import java.awt.HeadlessException;
 import java.io.File;
@@ -30,28 +38,13 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import jmt.framework.xml.XMLUtils;
-import jmt.gui.common.CommonConstants;
 import jmt.gui.common.Defaults;
-import jmt.gui.common.definitions.CommonModel;
-import jmt.gui.common.definitions.ModelConverter;
-import jmt.gui.common.definitions.StoredResultsModel;
 import jmt.gui.common.xml.*;
-import jmt.gui.jaba.JabaModel;
-import jlqn.analytical.JLQNModel;
-import jmt.jmva.analytical.ExactModel;
+import jlqn.model.JLQNModel;
 
 import org.w3c.dom.Document;
 
-/**
- * <p>Title: Model Loader</p>
- * <p>Description: This class provides unified load/save functionality
- * for every JMT application</p>
- *
- * @author Bertoli Marco
- *         Date: 15-feb-2006
- *         Time: 15.36.51
- */
-public class ModelLoader {
+public class JLQNModelLoader {
 
     /**
      * Filters for input files
@@ -116,7 +109,7 @@ public class ModelLoader {
      * @param defaultFilter default file filter for current application
      * @param defaultSaveFilter default file save filter for current application
      */
-    public ModelLoader(JmtFileFilter defaultFilter, JmtFileFilter defaultSaveFilter) {
+    public JLQNModelLoader(JmtFileFilter defaultFilter, JmtFileFilter defaultSaveFilter) {
         this.defaultFilter = defaultFilter;
         this.defaultSaveFilter = defaultSaveFilter;
         // Initialize filechooser dialog
@@ -275,7 +268,7 @@ public class ModelLoader {
             Document doc = XMLReader.loadXML(fileName);
             String root = doc.getDocumentElement().getNodeName();
             // Uses root name to determine document type
-            if (root.equals(ModelLoader.XML_LQN_ROOT)) {
+            if (root.equals(JLQNModelLoader.XML_LQN_ROOT)) {
                 return XML_LQN;
             } else {
                 return FILE_UNKNOWN;
