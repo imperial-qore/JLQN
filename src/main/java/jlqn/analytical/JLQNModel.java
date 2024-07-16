@@ -1046,6 +1046,15 @@ public class JLQNModel implements JLQNConstants {
             processorScheduling[processorNum] = j;
             processorQuantum[processorNum] = Double.parseDouble(current.getAttribute(JLQNDocumentConstants.DOC_PROCESSOR_QUANTUM));
             processorMultiplicity[processorNum] = Integer.parseInt(current.getAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY));
+            if (processorMultiplicity[processorNum] == -1) {
+                processorMultiplicity[processorNum] = Integer.MAX_VALUE;
+            } else if (current.getAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY).compareTo("Inf")==0) {
+                processorMultiplicity[processorNum] = Integer.MAX_VALUE;
+            } else if (current.getAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY).compareTo("INF")==0) {
+                processorMultiplicity[processorNum] = Integer.MAX_VALUE;
+            } else if (current.getAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY).compareTo("inf")==0) {
+                processorMultiplicity[processorNum] = Integer.MAX_VALUE;
+            }
             processorReplicas[processorNum] = Integer.parseInt(current.getAttribute(JLQNDocumentConstants.DOC_PROCESSOR_REPLICAS));
             processorSpeedFactor[processorNum] = Double.parseDouble(current.getAttribute(JLQNDocumentConstants.DOC_PROCESSOR_SPEED_FACTOR));
             processorNum++;

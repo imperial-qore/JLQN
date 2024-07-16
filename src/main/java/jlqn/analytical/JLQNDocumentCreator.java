@@ -87,7 +87,7 @@ public class JLQNDocumentCreator {
     double[] processorSpeedFactor = model.getProcessorSpeedFactor();
     processorElement = root.createElement("processor");
     if (processorMultiplicity[processorNum] == Integer.MAX_VALUE) {
-      processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY, "∞");
+      processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY, "Inf");
     } else {
       processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY, Integer.toString(processorMultiplicity[processorNum]));
     }
