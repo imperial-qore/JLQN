@@ -58,6 +58,7 @@
                 <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="11.0" name="A11"/>
                 <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="12.0" name="A12"/>
                 <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="13.0" name="A13"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="14.0" name="A14"/>
                 <precedence>
                     <pre>
                         <activity name="A5"/>
@@ -110,8 +111,16 @@
                         <activity name="A13"/>
                     </post>
                 </precedence>
+                <precedence>
+                    <pre>
+                        <activity name="A13"/>
+                    </pre>
+                    <post-LOOP end="Activity5.9">
+                        <activity count="3.0" name="A13"/>
+                    </post-LOOP>
+                </precedence>
                 <reply-entry name="E5">
-                    <reply-activity name="A13"/>
+                    <reply-activity name="A14"/>
                 </reply-entry>
             </task-activities>
         </task>

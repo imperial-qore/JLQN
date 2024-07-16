@@ -86,7 +86,11 @@ public class JLQNDocumentCreator {
     int[] processorReplicas = model.getProcessorReplicas();
     double[] processorSpeedFactor = model.getProcessorSpeedFactor();
     processorElement = root.createElement("processor");
-    processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY, Integer.toString(processorMultiplicity[processorNum]));
+    if (processorMultiplicity[processorNum] == Integer.MAX_VALUE) {
+      processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY, "∞");
+    } else {
+      processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_MULTIPLICITY, Integer.toString(processorMultiplicity[processorNum]));
+    }
     processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_NAME, processorNames[processorNum]);
     processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_QUANTUM, Double.toString(processorQuantum[processorNum]));
     processorElement.setAttribute(JLQNDocumentConstants.DOC_PROCESSOR_REPLICAS, Integer.toString(processorReplicas[processorNum]));
