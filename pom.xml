@@ -79,6 +79,14 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
+        <repository>
+            <id>jlqn-mvn-repo</id>
+            <url>https://raw.githubusercontent.com/imperial-qore/jlqn/main/maven/mvn-artifact/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
     </repositories>
     <profiles>
         <profile>
