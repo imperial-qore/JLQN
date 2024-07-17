@@ -22,6 +22,11 @@ package jlqn.gui.panels;
  * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
  * Modification date: 15-Jul-2024
  * Description of modifications: repurposed for LQN models
+ * <p>
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
  */
 
 /**
@@ -329,7 +334,11 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                         setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                         StringBuilder errors = new StringBuilder();
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
-                        lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimwView();
+                        if (jw.getData().getViewerType() == ViewerType.WIZ) {
+                            lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimwView();
+                        } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
+                            lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimgView();
+                        }
                     }
                 }
             });
