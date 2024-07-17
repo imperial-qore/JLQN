@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static jline.io.SysUtils.lineTempName;
 import static jlqn.common.JLQNConstants.*;
 
 public class SetLayeredNetwork {
@@ -242,8 +243,9 @@ public class SetLayeredNetwork {
     public static void outputXML(LayeredNetwork myLN) {
         try {
             File file = new File("");
-            String filePath = file.getCanonicalPath();
-            myLN.writeXML(filePath + "/result.xml", true);
+            String tmpFileName = lineTempName() + ".xml";
+            System.out.println("\nWriting solver output to temporary file: "+ tmpFileName);
+            myLN.writeXML(tmpFileName, true);
         } catch (IOException e) {
             e.printStackTrace();
         }
