@@ -87,6 +87,11 @@ public interface JLQNConstants {
     public enum SolverType {
         ALL, LQNS, LN
     }
+
+    public enum ViewerType {
+        WIZ, GRAPH
+    }
+
     public static final String[] CALL_TYPES = {
       "Synchronous", "Asynchronous", "Forwarding"
     };
@@ -118,13 +123,13 @@ public interface JLQNConstants {
     public static final int MAX_CALLS = 500;
 
     public static final String DESCRIPTION_PROCESSORS = "<html><body align=\"left\"><font size=\"4\"><b>Processors characteristics</b></font>"
-            + "<font size=\"3\"><br>Number, name, type of processor scheduling, quantum, multiplicity, replicas and speed factor.  </font></body></html>";
+            + "<font size=\"3\"><br>Number, name, type of processor scheduling, quantum, multiplicity, replicas and speed factor. </font></body></html>";
 
     public static final String DESCRIPTION_ENTRIES = "<html><body align=\"left\"><font size=\"4\"><b>Entries characteristics</b></font>"
             + "<font size=\"3\"><br>Number, name, arrival rate, priority.  </font></body></html>";
 
     public static final String DESCRIPTION_TASKS = "<html><body align=\"left\"><font size=\"4\"><b>Tasks characteristics</b></font>"
-            + "<font size=\"3\"><br>Processor, name, scheduling, priority, think time, multiplicity, replicas.  </font></body></html>";
+            + "<font size=\"3\"><br>Processor, name, scheduling, priority, think time, multiplicity, replicas. </font></body></html>";
     public static final int MAX_ACTIVITIES = 300;
     public static final String DESCRIPTION_ACTIVITES = "<html><body align=\"left\"><font size=\"4\"><b>Activities characteristics</b></font>"
             + "<font size=\"3\"><br>Number, name, entry it belongs to, type, think time.  </font></body></html>";

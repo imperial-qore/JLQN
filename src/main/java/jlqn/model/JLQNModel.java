@@ -69,6 +69,9 @@ public class JLQNModel implements JLQNConstants {
     StringBuilder errors = new StringBuilder();
 
 
+    // Viewer to use
+    private ViewerType viewerType;
+
     // Solver to use
     private SolverType solverType;
 
@@ -223,6 +226,9 @@ public class JLQNModel implements JLQNConstants {
     public String[][] getPrecedencePostActivities() { return precedencePostActivities; }
     public Double[][] getPrecedencePreParams() { return precedencePreParams; }
     public Double[][] getPrecedencePostParams() { return precedencePostParams; }
+    public ViewerType getViewerType() {
+        return viewerType;
+    }
     public SolverType getSolverType() {
         return solverType;
     }
@@ -586,6 +592,7 @@ public class JLQNModel implements JLQNConstants {
      */
     public void setDefaults() {
         resultsOK = false;
+        viewerType = ViewerType.WIZ;
         solverType = SolverType.LN;
         changed = true;
 
@@ -898,10 +905,10 @@ public class JLQNModel implements JLQNConstants {
                 case PRECEDENCE_LOOP:
                     // "LOOP" - pre activity: 1, post activity: >= 1, pre params: 0, post params: 1 (number of counts)
                     if (preActs.length != 1) {
-                        errors.append(String.format("Precedence \"%d\": LOOP should have 1 pre activity<br>",p + 1));
+                        errors.append(String.format("Precedence \"%d\": LOOP must have 1 pre activity<br>",p + 1));
                     }
-                    if (postActs.length < 1) {
-                        errors.append(String.format("Precedence \"%d\": LOOP should have 1 or more post activities<br>",p + 1));
+                    if (postActs.length != 2) {
+                        errors.append(String.format("Precedence \"%d\": LOOP must have 2 post activities<br>",p + 1));
                     }
                     if (postParams[0] == null) {
                         errors.append(String.format("Precedence \"%d\": LOOP post parameter - COUNTS - cannot be empty<br>",p + 1));
@@ -1277,12 +1284,15 @@ public class JLQNModel implements JLQNConstants {
                     throw new RuntimeException(String.format("Fail to read precedence activity of precedence %d", i));
                 }
                 Element currChild = (Element) child;
-                if (currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_PRE_OR_POST).equals("pre")) {
+                if (currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_ACTIVITY_TYPE).equals("pre")) {
                     childPrecedencePreActivities.add(currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_ACTIVITY));
                     childPrecedencePreParams.add(Double.parseDouble(currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_PARAMS)));
-                } else if (currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_PRE_OR_POST).equals("post")) {
+                } else if (currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_ACTIVITY_TYPE).equals("post")) {
                     childPrecedencePostActivities.add(currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_ACTIVITY));
                     childPrecedencePostParams.add(Double.parseDouble(currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_PARAMS)));
+                } else if (currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_ACTIVITY_TYPE).equals("end")) {
+                    childPrecedencePostActivities.add(currChild.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_ACTIVITY));
+                    childPrecedencePostParams.add(null);
                 } else {
                     throw new RuntimeException(String.format("Cannot identify pre or post activity for precedence %d, child %d", i, childIdx));
                 }
@@ -1919,10 +1929,13 @@ public class JLQNModel implements JLQNConstants {
         return true;
     }
 
+    public void setViewType(ViewerType viewerType) {
+        this.viewerType = viewerType;
+    }
+
     public void setSolverType(SolverType solverType) {
         this.solverType = solverType;
     }
-
     /**
      * Check if a task with the same name as input is a reference task.
      * @param taskName String that represents the task name.

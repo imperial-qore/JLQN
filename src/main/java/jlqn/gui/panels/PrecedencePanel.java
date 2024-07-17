@@ -458,6 +458,7 @@ public final class PrecedencePanel extends WizardPanel implements JLQNConstants,
         precedenceSpinnerBox.add(spinnerLabel);
 
         precedenceSpinnerBox.add(Box.createHorizontalStrut(10));
+
         Box numberBox = Box.createVerticalBox();
 
         JPanel spinnerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -466,12 +467,12 @@ public final class PrecedencePanel extends WizardPanel implements JLQNConstants,
         spinnerPanel.add(numberLabel);
         spinnerPanel.add(precedenceSpinner);
         numberBox.add(spinnerPanel);
-
         numberBox.add(new JButton(addPrecedence));
 
         numberBox.setMaximumSize(new Dimension(300, 150));
 
         precedenceSpinnerBox.add(numberBox);
+
         //END  Federico Dall'Orso 9/3/2005
 
         Box precedenceBox = Box.createVerticalBox();

@@ -77,7 +77,7 @@ public class JLQNWizard extends Wizard {
     //A link to the last modified model's temporary file - used to display synopsis
     private File tempFile = null;
 
-    private SolverTypePanel solverTypePanel;
+    private DropDownPanels dropDownPanels;
 
     private SolverPanel solverPanel;
     private SolverClient solver;
@@ -283,8 +283,8 @@ public class JLQNWizard extends Wizard {
 
         //adds the algorithm selection box
 
-        solverTypePanel = new SolverTypePanel(this);
-        tb.add(solverTypePanel);
+        dropDownPanels = new DropDownPanels(this);
+        tb.add(dropDownPanels);
 
         // Adds help
         for (int i = 0; i < buttons.size(); i++) {
@@ -543,8 +543,6 @@ public class JLQNWizard extends Wizard {
 //        jtp.add(new ResidTimePanel(this, avgTable));
 //        jtp.add(new ThroughputPanel(this, avgTable));
 
-
-        //END
         //BoundingBox of main window
         Rectangle rect = this.getBounds();
         solutionWindow.setBounds(rect.x + 20, rect.y + 20, rect.width, rect.height);
@@ -561,7 +559,6 @@ public class JLQNWizard extends Wizard {
                 panels.get(i).gotFocus();
             }
         }
-//         solverPanel.update(null, null, null, null, null);
     }
 
     @Override
@@ -601,29 +598,14 @@ public class JLQNWizard extends Wizard {
 
     @Override
     protected void finish() {
-        //OLD
-        //do not call this method!!! it is already called inside checkFinish() method.
-        //currentPanel.lostFocus();
         solve();
     }
 
-//    public void SetLN(){
-//        new SetLayeredNetwork(data);
-//    }
 
     public static void main(String[] args) {
-//        try {
-//            UIManager.setLookAndFeel(new com.jgoodies.looks.plastic.Plastic3DLookAndFeel());
-//
-//        } catch (UnsupportedLookAndFeelException e) {
-//            e.printStackTrace();
-//        }
         Locale.setDefault(Locale.ENGLISH);
 
-        /* EDITED by Abhimanyu Chugh */
         new JLQNWizard();
-//        new JLQNWizard(new JLQNModel());
-        /* END */
     }
 
 

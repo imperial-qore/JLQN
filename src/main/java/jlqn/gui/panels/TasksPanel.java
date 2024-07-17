@@ -3,20 +3,30 @@ package jlqn.gui.panels;
 /**
  * Original source file license header:
  * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
-
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
-
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
-
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ * <p>
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
+ * <p>
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
  */
 
 /**
@@ -26,8 +36,10 @@ package jlqn.gui.panels;
  * Description of modifications: repurposed for LQN models
  */
 
+import jline.lang.layered.LayeredNetwork;
 import jlqn.gui.panels.ForceUpdatablePanel;
 import jlqn.model.JLQNModel;
+import jlqn.model.SetLayeredNetwork;
 import jmt.framework.data.ArrayUtils;
 import jmt.framework.gui.help.HoverHelp;
 import jmt.framework.gui.table.editors.ButtonCellEditor;
@@ -61,14 +73,15 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
     private static final long serialVersionUID = 1L;
 
     // Column numbers
-    private final static int NUM_COL = 7;
-    private final static int COL_NAME = 0;
-    private final static int COL_PROCESSOR = 1;
-    private final static int COL_SCHEDULING = 2;
-    private final static int COL_MULTIPLICITY = 3;
-    private final static int COL_THINK_TIME_MEAN = 4;
-    private final static int COL_PRIORITY = 5;
-    private final static int COL_DELETE_BUTTON = 6;
+    private final static int NUM_COL = 8;
+    private final static int COL_DELETE_BUTTON = 0;
+    private final static int COL_NAME = 1;
+    private final static int COL_PROCESSOR = 2;
+    private final static int COL_SCHEDULING = 3;
+    private final static int COL_MULTIPLICITY = 4;
+    private final static int COL_THINK_TIME_MEAN = 5;
+    private final static int COL_PRIORITY = 6;
+    private final static int COL_VIEW_WIZ = 7;
 
     private HoverHelp help;
     private static final String helpText = "<html>In this panel you can define the number of tasks in the system and their properties.<br><br>"
@@ -124,6 +137,23 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         }
         deleteTasks(selectedRows);
     }
+
+    private AbstractAction viewEnsembleLayerWiz = new AbstractAction("") {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
+
+        {
+            putValue(Action.SHORT_DESCRIPTION, "View");
+            //putValue(Action.NAME, "View");
+            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("toJSIM", new Dimension(30, 30)));
+            //putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JSIMIcon", new Dimension(20,20)));
+        }
+
+        public void actionPerformed(ActionEvent e) {
+        }
+    };
 
     private AbstractAction deleteTask = new AbstractAction("Delete selected tasks") {
         /**
@@ -223,7 +253,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         ButtonCellEditor deleteButtonCellRenderer;
         JButton deleteButton;
 
-        //END Federico Dall'Orso 8/3/2005
+        ButtonCellEditor viewWizButtonCellRenderer;
+        JButton viewWizButton;
 
         TaskTable() {
             super(new TaskTableModel());
@@ -236,6 +267,10 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
 
             deleteButton = new JButton(deleteOneTask);
             deleteButtonCellRenderer = new ButtonCellEditor(deleteButton);
+
+            viewWizButton = new JButton(viewEnsembleLayerWiz);
+            viewWizButtonCellRenderer = new ButtonCellEditor(viewWizButton);
+            enableWizViews();
             enableDeletes();
             rowHeader.setRowHeight(CommonConstants.ROW_HEIGHT);
             setRowHeight(CommonConstants.ROW_HEIGHT);
@@ -289,6 +324,28 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             }
         }
 
+        private void enableWizViews() {
+            viewEnsembleLayerWiz.setEnabled(true);
+            /*It seems the only way to implement row deletion...*/
+            this.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if ((columnAtPoint(e.getPoint()) == COL_VIEW_WIZ) && getRowCount() > 1) {
+                        setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
+                        StringBuilder errors = new StringBuilder();
+                        LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
+                        if (jw.getData().getViewerType() == ViewerType.WIZ) {
+                            lqnmodel.getLayers().get(lqnmodel.getStruct().nhosts + rowAtPoint(e.getPoint())).jsimwView();
+                        } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
+                            lqnmodel.getLayers().get(lqnmodel.getStruct().nhosts + rowAtPoint(e.getPoint())).jsimgView();
+                        }
+                    }
+                }
+            });
+            // getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(30);
+            // getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(30);
+        }
+
         //BEGIN Federico Dall'Orso 14/3/2005
         /*enables deleting operations with last column's button*/
         private void enableDeletes() {
@@ -297,14 +354,14 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             this.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if ((columnAtPoint(e.getPoint()) == getColumnCount() - 1) && getRowCount() > 1) {
+                    if ((columnAtPoint(e.getPoint()) == COL_DELETE_BUTTON) && getRowCount() > 1) {
                         setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                         deleteSelectedTasks();
                     }
                 }
             });
-            getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(20);
-            getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(20);
+            getColumnModel().getColumn(COL_DELETE_BUTTON).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE_BUTTON).setMaxWidth(20);
         }
 
         @Override
@@ -314,9 +371,11 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                 return taskSchedulingComboBoxCell;
             } else if (column == COL_DELETE_BUTTON) {
                 return deleteButtonCellRenderer;
-            } else if (column == COL_PROCESSOR){
+            } else if (column == COL_VIEW_WIZ) {
+                return viewWizButtonCellRenderer;
+            } else if (column == COL_PROCESSOR) {
                 return taskProcessorComboBoxCell;
-            }else {
+            } else {
                 return disabledCellRenderer;
             }
         }
@@ -352,13 +411,18 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
 ////            super.editingStopped(ce);
 //        }
 
+        void updateViewCommand() {
+            getColumnModel().getColumn(COL_VIEW_WIZ).setMinWidth(30);
+            getColumnModel().getColumn(COL_VIEW_WIZ).setMaxWidth(30);
+        }
+
         //BEGIN Federico Dall'Orso 14/3/2005
         //NEW
         //Updates appearence of last column's buttons
         void updateDeleteCommand() {
             deleteOneTask.setEnabled(numberOfTasks > 1);
-            getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(20);
-            getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(20);
+            getColumnModel().getColumn(COL_DELETE_BUTTON).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE_BUTTON).setMaxWidth(20);
 
         }
 
@@ -384,8 +448,9 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
          *
          */
         private static final long serialVersionUID = 1L;
-        private Object[] prototypes = { "10000", new String(new char[15]), "", "", new Integer(1000),
-                new String(new char[15]), new String(new char[15]), new Integer(1000), new Integer(1000), "" };
+        private Object[] prototypes = {"10000", new String(new char[15]), "", "", new Integer(1000),
+                new String(new char[15]), new String(new char[15]), new Integer(1000), new Integer(1000), ""};
+
         @Override
         public Object getPrototype(int columnIndex) {
             return prototypes[columnIndex + 1];
@@ -498,7 +563,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                     }
                     break;
                 }
-                case COL_MULTIPLICITY:{
+                case COL_MULTIPLICITY: {
                     try {
                         int newval = (int) Double.parseDouble((String) value);
                         if (newval >= 0) {
@@ -508,7 +573,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                     }
                     break;
                 }
-                case COL_PRIORITY:{
+                case COL_PRIORITY: {
                     try {
                         int newval = (int) Double.parseDouble((String) value);
                         if (newval >= 0) {
@@ -619,7 +684,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             nameCounter = numberOfTasks;
             //pop = data.getTotalPop();
             TASK_PROCESSOR = data.getProcessorNames();
-            TASK_PROCESSOR = ArrayUtils.resize(TASK_PROCESSOR, TASK_PROCESSOR.length+1, null);
+            TASK_PROCESSOR = ArrayUtils.resize(TASK_PROCESSOR, TASK_PROCESSOR.length + 1, null);
             taskNames = ArrayUtils.copy(data.getTaskNames());
             taskScheduling = ArrayUtils.copy(data.getTaskScheduling());
             taskProcessor = ArrayUtils.copy(data.getTaskProcessor());
@@ -654,7 +719,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
     private void makeNames() {
         for (int i = 0; i < taskNames.length; i++) {
             if (taskNames[i] == null) {
-                while (areThereDuplicates("Task" + (nameCounter+1), i, false)) {
+                while (areThereDuplicates("Task" + (nameCounter + 1), i, false)) {
                     nameCounter++;
                 }
                 taskNames[i] = "Task" + (++nameCounter);
@@ -684,6 +749,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         }
 
         taskSpinner.setValue(new Integer(numberOfTasks));
+        taskTable.updateViewCommand();
         taskTable.updateDeleteCommand();
     }
 
@@ -797,6 +863,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
     public void commitData() {
         commit();
     }
+
     @Override
     public void help() {
         JOptionPane.showMessageDialog(this, helpText, "Help", JOptionPane.INFORMATION_MESSAGE);
