@@ -28,3 +28,6 @@ LN (as of [LINE](https://github.com/imperial-qore/line-solver) 2.0.35):
 LQNS:
 * Batch layering.
 * Activities modelled as phases.
+
+## License
+GNU General Public License v2.0. 
