@@ -62,7 +62,7 @@ public class JLQNDocumentConstants {
 
   public static final String DOC_PRECEDENCE_NUMBER = "number";
   public static final String DOC_PRECEDENCE_TYPE = "type";
-  public static final String DOC_PRECEDENCE_PRE_OR_POST = "pre_or_post";
+  public static final String DOC_PRECEDENCE_ACTIVITY_TYPE = "type"; // pre, post, or end
   public static final String DOC_PRECEDENCE_ACTIVITY = "activity";
   public static final String DOC_PRECEDENCE_PARAMS = "params";
 

@@ -597,7 +597,9 @@ public final class PrecedenceActivityPanel extends WizardPanel implements JLQNCo
                     this.numCol = 2;
                     this.oneOption = true;
                 } else {
+                    initNumberOfPrecedences(2);
                     this.parameterLabel = "Counts";
+                    this.oneOption = true;
                 }
                 // Reset all values after first if exist for loop
                 for (int i = 1; i < this.precedenceParams.length; i++) {

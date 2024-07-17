@@ -335,9 +335,9 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                         StringBuilder errors = new StringBuilder();
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
                         if (jw.getData().getViewerType() == ViewerType.WIZ) {
-                            lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimwView();
+                            lqnmodel.getLayers().get(lqnmodel.getStruct().nhosts + rowAtPoint(e.getPoint())).jsimwView();
                         } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
-                            lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimgView();
+                            lqnmodel.getLayers().get(lqnmodel.getStruct().nhosts + rowAtPoint(e.getPoint())).jsimgView();
                         }
                     }
                 }
