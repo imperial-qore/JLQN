@@ -38,9 +38,9 @@ import java.awt.event.ActionListener;
 
 public class DropDownPanels extends JPanel {
   private static final long serialVersionUID = 1L;
-  private static final String SOLVER_LABEL = "Solver Type:";
+  private static final String SOLVER_LABEL = "Solver:";
 //  private static final String VIEWER_LABEL = "                                                                                                               Viewer Type:";
-  private static final String VIEWER_LABEL = "Viewer Type:";
+  private static final String VIEWER_LABEL = "Layer Viewer:";
 
   private HoverHelp help;
   private JLQNWizard jw;
