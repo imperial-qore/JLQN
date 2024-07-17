@@ -87,6 +87,11 @@ public interface JLQNConstants {
     public enum SolverType {
         ALL, LQNS, LN
     }
+
+    public enum ViewerType {
+        WIZ, GRAPH
+    }
+
     public static final String[] CALL_TYPES = {
       "Synchronous", "Asynchronous", "Forwarding"
     };

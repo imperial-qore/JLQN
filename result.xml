@@ -28,8 +28,17 @@
             <entry name="E3" type="NONE"/>
             <task-activities>
                 <activity bound-to-entry="E3" call-order="STOCHASTIC" host-demand-cvsq="1.0" host-demand-mean="3.0" name="A3"/>
+                <activity call-order="STOCHASTIC" host-demand-cvsq="1.0E-8" host-demand-mean="1.0E-8" name="A4"/>
+                <precedence>
+                    <pre>
+                        <activity name="A3"/>
+                    </pre>
+                    <post>
+                        <activity name="A4"/>
+                    </post>
+                </precedence>
                 <reply-entry name="E3">
-                    <reply-activity name="A3"/>
+                    <reply-activity name="A4"/>
                 </reply-entry>
             </task-activities>
         </task>

@@ -3,20 +3,25 @@ package jlqn.gui.panels;
 /**
  * Original source file license header:
  * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
-
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
-
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
-
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ * <p>
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
  */
 
 /**
@@ -39,7 +44,6 @@ import jmt.gui.table.*;
 
 import jlqn.common.JLQNConstants;
 import jlqn.gui.JLQNWizard;
-import jline.solvers.ln.SolverLN;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -52,7 +56,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 /**
-
  * @author
  * Date: 4-Feb-2023
  */
@@ -210,11 +213,12 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         {
             putValue(Action.SHORT_DESCRIPTION, "View");
             //putValue(Action.NAME, "View");
-            //          putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("toJSIM", new Dimension(30,30)));
-            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JSIMIcon", new Dimension(20,20)));
+            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("toJSIM", new Dimension(30, 30)));
+            //putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JSIMIcon", new Dimension(20,20)));
         }
 
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+        }
     };
 
     private AbstractAction viewEnsembleLayerGraph = new AbstractAction("") {
@@ -226,10 +230,11 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         {
             putValue(Action.SHORT_DESCRIPTION, "View");
             //putValue(Action.NAME, "View");
-            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JMODELIcon", new Dimension(20,20)));
+            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JMODELIcon", new Dimension(20, 20)));
         }
 
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+        }
     };
 
     private class ProcessorTable extends ExactTable {
@@ -323,12 +328,17 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                         setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                         StringBuilder errors = new StringBuilder();
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
-                        lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimwView();
+
+                        if (jw.getData().getViewerType() == ViewerType.WIZ) {
+                            lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimwView();
+                        } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
+                            lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimgView();
+                        }
                     }
                 }
             });
-           // getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(30);
-           // getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(30);
+            // getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(30);
+            // getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(30);
         }
 
         private void enableGraphViews() {
@@ -447,7 +457,8 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
          *
          */
         private static final long serialVersionUID = 1L;
-        private Object[] prototypes = { "10000", new String(new char[15]), new String(new char[15]), new String(new char[15]), new Integer(1000), new Integer(1000), new String(new char[15]), "" };
+        private Object[] prototypes = {"10000", new String(new char[15]), new String(new char[15]), new String(new char[15]), new Integer(1000), new Integer(1000), new String(new char[15]), ""};
+
         @Override
         public Object getPrototype(int columnIndex) {
             return prototypes[columnIndex + 1];
@@ -539,7 +550,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                         }
                     }
                     break;
-                case COL_MULTIPLICITY:{
+                case COL_MULTIPLICITY: {
                     try {
                         int newval = (int) Double.parseDouble((String) value);
                         if (newval >= 0) {
@@ -579,7 +590,6 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             }
         }
     }
-
 
 
     private void initComponents() {
@@ -667,7 +677,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
     private void makeNames() {
         for (int i = 0; i < processorNames.length; i++) {
             if (processorNames[i] == null) {
-                while (areThereDuplicates("Processor" + (nameCounter+1), i, false)) {
+                while (areThereDuplicates("Processor" + (nameCounter + 1), i, false)) {
                     nameCounter++;
                 }
                 processorNames[i] = "Processor" + (++nameCounter);
@@ -795,7 +805,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             //end NEW
         }
 
-}
+    }
 
 
     public void retrieveData() {
@@ -805,6 +815,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
     public void commitData() {
         commit();
     }
+
     @Override
     public void help() {
         JOptionPane.showMessageDialog(this, helpText, "Help", JOptionPane.INFORMATION_MESSAGE);
@@ -820,4 +831,5 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                 data.resizeProcessors(lo.getData(), false);
             }
         }
-    }}
+    }
+}

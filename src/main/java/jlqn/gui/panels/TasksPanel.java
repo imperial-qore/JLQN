@@ -3,20 +3,25 @@ package jlqn.gui.panels;
 /**
  * Original source file license header:
  * Copyright (C) 2016, Laboratorio di Valutazione delle Prestazioni - Politecnico di Milano
-
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
-
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
-
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ * <p>
+ * Modification notice:
+ * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
+ * Modification date: 15-Jul-2024
+ * Description of modifications: repurposed for LQN models
  */
 
 /**
@@ -137,11 +142,12 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         {
             putValue(Action.SHORT_DESCRIPTION, "View");
             //putValue(Action.NAME, "View");
-            //          putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("toJSIM", new Dimension(30,30)));
-            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JSIMIcon", new Dimension(20,20)));
+            putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("toJSIM", new Dimension(30, 30)));
+            //putValue(Action.SMALL_ICON, JMTImageLoader.loadImage("JSIMIcon", new Dimension(20,20)));
         }
 
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+        }
     };
 
     private AbstractAction deleteTask = new AbstractAction("Delete selected tasks") {
@@ -358,9 +364,9 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                 return deleteButtonCellRenderer;
             } else if (column == COL_VIEW_WIZ) {
                 return viewWizButtonCellRenderer;
-            } else if (column == COL_PROCESSOR){
+            } else if (column == COL_PROCESSOR) {
                 return taskProcessorComboBoxCell;
-            }else {
+            } else {
                 return disabledCellRenderer;
             }
         }
@@ -400,7 +406,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             getColumnModel().getColumn(COL_VIEW_WIZ).setMinWidth(30);
             getColumnModel().getColumn(COL_VIEW_WIZ).setMaxWidth(30);
         }
-            //BEGIN Federico Dall'Orso 14/3/2005
+
+        //BEGIN Federico Dall'Orso 14/3/2005
         //NEW
         //Updates appearence of last column's buttons
         void updateDeleteCommand() {
@@ -432,8 +439,9 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
          *
          */
         private static final long serialVersionUID = 1L;
-        private Object[] prototypes = { "10000", new String(new char[15]), "", "", new Integer(1000),
-                new String(new char[15]), new String(new char[15]), new Integer(1000), new Integer(1000), "" };
+        private Object[] prototypes = {"10000", new String(new char[15]), "", "", new Integer(1000),
+                new String(new char[15]), new String(new char[15]), new Integer(1000), new Integer(1000), ""};
+
         @Override
         public Object getPrototype(int columnIndex) {
             return prototypes[columnIndex + 1];
@@ -546,7 +554,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                     }
                     break;
                 }
-                case COL_MULTIPLICITY:{
+                case COL_MULTIPLICITY: {
                     try {
                         int newval = (int) Double.parseDouble((String) value);
                         if (newval >= 0) {
@@ -556,7 +564,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                     }
                     break;
                 }
-                case COL_PRIORITY:{
+                case COL_PRIORITY: {
                     try {
                         int newval = (int) Double.parseDouble((String) value);
                         if (newval >= 0) {
@@ -667,7 +675,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             nameCounter = numberOfTasks;
             //pop = data.getTotalPop();
             TASK_PROCESSOR = data.getProcessorNames();
-            TASK_PROCESSOR = ArrayUtils.resize(TASK_PROCESSOR, TASK_PROCESSOR.length+1, null);
+            TASK_PROCESSOR = ArrayUtils.resize(TASK_PROCESSOR, TASK_PROCESSOR.length + 1, null);
             taskNames = ArrayUtils.copy(data.getTaskNames());
             taskScheduling = ArrayUtils.copy(data.getTaskScheduling());
             taskProcessor = ArrayUtils.copy(data.getTaskProcessor());
@@ -702,7 +710,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
     private void makeNames() {
         for (int i = 0; i < taskNames.length; i++) {
             if (taskNames[i] == null) {
-                while (areThereDuplicates("Task" + (nameCounter+1), i, false)) {
+                while (areThereDuplicates("Task" + (nameCounter + 1), i, false)) {
                     nameCounter++;
                 }
                 taskNames[i] = "Task" + (++nameCounter);
@@ -846,6 +854,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
     public void commitData() {
         commit();
     }
+
     @Override
     public void help() {
         JOptionPane.showMessageDialog(this, helpText, "Help", JOptionPane.INFORMATION_MESSAGE);

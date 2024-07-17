@@ -69,6 +69,9 @@ public class JLQNModel implements JLQNConstants {
     StringBuilder errors = new StringBuilder();
 
 
+    // Viewer to use
+    private ViewerType viewerType;
+
     // Solver to use
     private SolverType solverType;
 
@@ -223,6 +226,9 @@ public class JLQNModel implements JLQNConstants {
     public String[][] getPrecedencePostActivities() { return precedencePostActivities; }
     public Double[][] getPrecedencePreParams() { return precedencePreParams; }
     public Double[][] getPrecedencePostParams() { return precedencePostParams; }
+    public ViewerType getViewerType() {
+        return viewerType;
+    }
     public SolverType getSolverType() {
         return solverType;
     }
@@ -586,6 +592,7 @@ public class JLQNModel implements JLQNConstants {
      */
     public void setDefaults() {
         resultsOK = false;
+        viewerType = ViewerType.WIZ;
         solverType = SolverType.LN;
         changed = true;
 
@@ -1919,10 +1926,13 @@ public class JLQNModel implements JLQNConstants {
         return true;
     }
 
+    public void setViewType(ViewerType viewerType) {
+        this.viewerType = viewerType;
+    }
+
     public void setSolverType(SolverType solverType) {
         this.solverType = solverType;
     }
-
     /**
      * Check if a task with the same name as input is a reference task.
      * @param taskName String that represents the task name.
