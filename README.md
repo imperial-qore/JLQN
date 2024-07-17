@@ -19,3 +19,11 @@ This version of JLQN takes the following assumptions:
 * All demands are exponentially distributed with the specified mean.
 * No forwarding calls.
 * A single replyTo activity for each entry.
+
+## Solver assumptions
+LN (as of (https://github.com/imperial-qore/line-solver)[LINE] 2.0.35):
+* SRVN layering.
+* Activities modelled as successive visits.
+LQNS:
+* Batch layering.
+* Activities modelled as phases.
