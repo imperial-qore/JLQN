@@ -1272,7 +1272,30 @@ public class JLQNModel implements JLQNConstants {
                 throw new RuntimeException("Fail to read precedences");
             }
             current = (Element) n;
-            precedenceType[i] = Integer.parseInt(current.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE));
+            String precedenceTypeName = current.getAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE);
+                    switch (precedenceTypeName) {
+                        case "seq":
+                            precedenceType[i] = PRECEDENCE_SEQUENCE;
+                            break;
+                        case "or-fork":
+                            precedenceType[i] = PRECEDENCE_OR_FORK;
+                            break;
+                        case "or-join":
+                            precedenceType[i] = PRECEDENCE_OR_JOIN;
+                            break;
+                        case "and-fork":
+                            precedenceType[i] = PRECEDENCE_AND_FORK;
+                            break;
+                        case "and-join":
+                            precedenceType[i] = PRECEDENCE_AND_JOIN;
+                            break;
+                        case "loop":
+                            precedenceType[i] = PRECEDENCE_LOOP;
+                            break;
+                        default:
+                            System.err.println("ERROR: unknown precedence type in the JLQN input.");
+                    }
+
             NodeList precedenceChildren = n.getChildNodes();
             List<String> childPrecedencePreActivities = new ArrayList<>();
             List<Double> childPrecedencePreParams = new ArrayList<>();

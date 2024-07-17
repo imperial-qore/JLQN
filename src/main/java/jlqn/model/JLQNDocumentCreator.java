@@ -216,7 +216,20 @@ public class JLQNDocumentCreator {
         Double[][] precedencePostParams = model.getPrecedencePostParams();
 
         callElement = root.createElement("precedence");
-        callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, Integer.toString(precedenceType[precedenceNum]));
+        switch (precedenceType[precedenceNum]){
+            case PRECEDENCE_SEQUENCE:
+                callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "seq");
+            case PRECEDENCE_OR_FORK:
+                callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "or-fork");
+            case PRECEDENCE_OR_JOIN:
+                callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "or-join");
+            case PRECEDENCE_AND_FORK:
+                callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "and-fork");
+            case PRECEDENCE_AND_JOIN:
+                callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "and-join");
+            case PRECEDENCE_LOOP:
+                callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "loop");
+        }
         for (int preIdx = 0; preIdx < precedencePreActivity[precedenceNum].length; preIdx++) {
             Element preActivity = root.createElement("precedence-activity");
             preActivity.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_ACTIVITY_TYPE, "pre");
