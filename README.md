@@ -21,7 +21,7 @@ This version of JLQN takes the following assumptions:
 * A single replyTo activity for each entry.
 
 ## Solver assumptions
-LN (as of (https://github.com/imperial-qore/line-solver)[LINE] 2.0.35):
+LN (as of [LINE](https://github.com/imperial-qore/line-solver) 2.0.35):
 * SRVN layering.
 * Activities modelled as successive visits.
 LQNS:
