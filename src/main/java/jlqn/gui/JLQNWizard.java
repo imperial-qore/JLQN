@@ -30,6 +30,7 @@ import jline.solvers.LayeredNetworkAvgTable;
 import jline.solvers.SolverOptions;
 import jline.solvers.ln.SolverLN;
 import jline.solvers.lqns.SolverLQNS;
+import jlqn.gui.plot.JLQNPlot;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
 import jlqn.gui.panels.*;
@@ -50,12 +51,14 @@ import jmt.manual.PDFViewer;
 
 import jmt.gui.common.panels.WarningWindow;
 import jlqn.gui.xml.JLQNModelLoader;
+import org.graphper.draw.ExecuteException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -210,6 +213,35 @@ public class JLQNWizard extends Wizard {
 
     };
 
+    private AbstractJMTAction ACTION_PLOT = new AbstractJMTAction("Plot") {
+
+        private static final long serialVersionUID = 1L;
+
+        {
+            putValue(Action.SHORT_DESCRIPTION, "Plot model");
+            setIcon("ScreenShot", JMTImageLoader.getImageLoader());
+
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+            putValue(Action.MNEMONIC_KEY, new Integer(KeyEvent.VK_L));
+
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (checkFinish()) {
+                StringBuilder errors = new StringBuilder();
+                LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(data, errors);
+                try {
+                    JLQNPlot.plotLQN(lqnmodel);
+                } catch (ExecuteException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
+
+    };
+
     private AbstractJMTAction HELP = new AbstractJMTAction("JLQN Help") {
 
         private static final long serialVersionUID = 1L;
@@ -275,8 +307,8 @@ public class JLQNWizard extends Wizard {
         tb.setFloatable(false);
 
         //null values add a gap between toolbar icons
-        AbstractJMTAction[] actions = { FILE_NEW, FILE_OPEN, FILE_SAVE, null, ACTION_SOLVE, null, HELP, null };
-        String[] htext = { "Creates a new model", "Opens a saved model", "Saves the current model", "Solves the current model",
+        AbstractJMTAction[] actions = { FILE_NEW, FILE_OPEN, FILE_SAVE, null, ACTION_SOLVE, null, ACTION_PLOT, null, HELP, null };
+        String[] htext = { "Creates a new model", "Opens a saved model", "Saves the current model", "Solves the current model","Plot the current model",
                 "Show help"};
         ArrayList<AbstractButton> buttons = new ArrayList<AbstractButton>();
         buttons.addAll(tb.populateToolbar(actions));
