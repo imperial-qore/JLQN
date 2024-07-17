@@ -24,6 +24,7 @@ This version of JLQN takes the following assumptions:
 LN (as of [LINE](https://github.com/imperial-qore/line-solver) 2.0.35):
 * SRVN layering.
 * Activities modelled as successive visits.
+  
 LQNS:
 * Batch layering.
 * Activities modelled as phases.
