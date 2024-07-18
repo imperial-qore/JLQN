@@ -267,12 +267,11 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
 
             processorSchedulingComboBoxCell = new ComboBoxCell(PROCESSOR_SCHEDULING_TYPENAMES);
 
-            //viewGraphButton = new JButton(viewEnsembleLayerGraph);
-            viewWizButton = new JButton(viewEnsembleLayerWiz);
             deleteButton = new JButton(deleteOneProcessor);
-            //viewGraphButtonCellRenderer = new ButtonCellEditor(viewGraphButton);
-            viewWizButtonCellRenderer = new ButtonCellEditor(viewWizButton);
             deleteButtonCellRenderer = new ButtonCellEditor(deleteButton);
+
+            viewWizButton = new JButton(viewEnsembleLayerWiz);
+            viewWizButtonCellRenderer = new ButtonCellEditor(viewWizButton);
 
             enableWizViews();
             //enableGraphViews();
@@ -340,6 +339,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                             } catch (ParserConfigurationException ex) {
                                 throw new RuntimeException(ex);
                             }
+
                         } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
                             SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
                             try {
@@ -425,8 +425,8 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         //Updates appearance of last column's buttons
         void updateDeleteCommand() {
             deleteOneProcessor.setEnabled(numberOfProcessors > 1);
-            getColumnModel().getColumn(COL_DELETE).setMinWidth(20);
-            getColumnModel().getColumn(COL_DELETE).setMaxWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMinWidth(30);
+            getColumnModel().getColumn(COL_DELETE).setMaxWidth(30);
         }
 
         //END Federico Dall'Orso 14/3/2005

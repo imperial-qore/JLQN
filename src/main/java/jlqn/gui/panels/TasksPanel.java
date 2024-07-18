@@ -322,7 +322,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             this.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if ((columnAtPoint(e.getPoint()) == COL_VIEW) && getRowCount() > 1) {
+                    if ((columnAtPoint(e.getPoint()) == COL_VIEW) && getRowCount() > 0) {
                         setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                         StringBuilder errors = new StringBuilder();
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
@@ -423,9 +423,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         //Updates appearence of last column's buttons
         void updateDeleteCommand() {
             deleteOneTask.setEnabled(numberOfTasks > 1);
-            getColumnModel().getColumn(COL_DELETE).setMinWidth(20);
-            getColumnModel().getColumn(COL_DELETE).setMaxWidth(20);
-
+            getColumnModel().getColumn(COL_DELETE).setMinWidth(30);
+            getColumnModel().getColumn(COL_DELETE).setMaxWidth(30);
         }
 
         //END Federico Dall'Orso 14/3/2005
@@ -631,13 +630,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         JLabel spinnerLabel = new JLabel(DESCRIPTION_TASKS);
 
         taskSpinnerBox.add(spinnerLabel);
-        //END
-        //BEGIN Federico Dall'Orso 9/3/2005
-        //OLD
-		/*
-		classSpinnerBox.add(Box.createGlue());
-		 */
-        //NEW
+
         taskSpinnerBox.add(Box.createHorizontalStrut(10));
         Box numberBox = Box.createVerticalBox();
 

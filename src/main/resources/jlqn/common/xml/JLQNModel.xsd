@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="jlqn">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="parameters">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="processors">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="processor" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="multiplicity" type="xs:int" use="required"/>
+                                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                                <xs:attribute name="quantum" type="xs:float" use="required"/>
+                                                <xs:attribute name="replicas" type="xs:int" use="required"/>
+                                                <xs:attribute name="scheduling" type="xs:string" use="required"/>
+                                                <xs:attribute name="speed_factor" type="xs:float" use="required"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="number" type="xs:int" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="tasks">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="task" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="multiplicity" type="xs:int" use="required"/>
+                                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                                <xs:attribute name="priority" type="xs:int" use="required"/>
+                                                <xs:attribute name="processor" type="xs:string" use="required"/>
+                                                <xs:attribute name="replicas" type="xs:int" use="required"/>
+                                                <xs:attribute name="scheduling" type="xs:string" use="required"/>
+                                                <xs:attribute name="think_time_mean" type="xs:float" use="required"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="number" type="xs:int" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="entries">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="entry" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="arrival_rate" type="xs:float" use="required"/>
+                                                <xs:attribute name="bound_to_activity" type="xs:string" use="required"/>
+                                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                                <xs:attribute name="priority" type="xs:int" use="required"/>
+                                                <xs:attribute name="reply_to_activity" type="xs:string" use="required"/>
+                                                <xs:attribute name="task" type="xs:string" use="required"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="number" type="xs:int" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="activities">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="activity" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="host_demand_mean" type="xs:float" use="required"/>
+                                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                                <xs:attribute name="task" type="xs:string" use="required"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="number" type="xs:int" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="calls">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="call" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="activity" type="xs:string" use="required"/>
+                                                <xs:attribute name="entry" type="xs:string" use="required"/>
+                                                <xs:attribute name="mean_repeat" type="xs:float" use="required"/>
+                                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                                <xs:attribute name="type" type="xs:string" use="required"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="number" type="xs:int" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="precedences">
+                                <xs:complexType>
+                                    <xs:attribute name="number" type="xs:int" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="xmlns:xsi" type="xs:string" use="required"/>
+            <xs:attribute name="xsi:noNamespaceSchemaLocation" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
