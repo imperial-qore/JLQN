@@ -54,7 +54,7 @@ public class DropDownPanels extends JPanel {
     public void actionPerformed(ActionEvent e) {
       solverTypes = (JComboBox<String>) e.getSource();
       String solverType = (String) solverTypes.getSelectedItem();
-      JLQNConstants.SolverType type = JLQNConstants.SolverType.ALL;
+      JLQNConstants.SolverType type = null;
 
       switch (solverType) {
         case "LQNS":

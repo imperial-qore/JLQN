@@ -276,6 +276,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             enableWizViews();
             //enableGraphViews();
             enableDeletes();
+
             rowHeader.setRowHeight(CommonConstants.ROW_HEIGHT);
             setRowHeight(CommonConstants.ROW_HEIGHT);
 
@@ -305,7 +306,8 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             tableHeader.setToolTipText(null);
             rowHeader.setToolTipText(null);
             help.addHelp(rowHeader, "Click, SHIFT-click or drag to select processors");
-
+            updateViewCommand();
+            updateDeleteCommand();
         }
 
         /**
@@ -425,8 +427,8 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         //Updates appearance of last column's buttons
         void updateDeleteCommand() {
             deleteOneProcessor.setEnabled(numberOfProcessors > 1);
-            getColumnModel().getColumn(COL_DELETE).setMinWidth(30);
-            getColumnModel().getColumn(COL_DELETE).setMaxWidth(30);
+            getColumnModel().getColumn(COL_DELETE).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMaxWidth(20);
         }
 
         //END Federico Dall'Orso 14/3/2005

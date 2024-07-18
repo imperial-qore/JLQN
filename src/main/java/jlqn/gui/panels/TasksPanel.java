@@ -298,6 +298,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             rowHeader.setToolTipText(null);
             help.addHelp(rowHeader, "Click, SHIFT-click or drag to select tasks");
 
+            updateViewCommand();
+            updateDeleteCommand();
         }
 
         /**
@@ -423,8 +425,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         //Updates appearence of last column's buttons
         void updateDeleteCommand() {
             deleteOneTask.setEnabled(numberOfTasks > 1);
-            getColumnModel().getColumn(COL_DELETE).setMinWidth(30);
-            getColumnModel().getColumn(COL_DELETE).setMaxWidth(30);
+            getColumnModel().getColumn(COL_DELETE).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMaxWidth(20);
         }
 
         //END Federico Dall'Orso 14/3/2005
