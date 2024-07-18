@@ -1,6 +1,8 @@
 # JLQN
 Java GUI for layered queueing network specification (alpha version)
 
+![alt text](preview.png)
+
 ## Getting started
 You can launch the GUI using:
 ```
