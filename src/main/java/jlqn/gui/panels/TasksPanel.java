@@ -37,7 +37,6 @@ package jlqn.gui.panels;
  */
 
 import jline.lang.layered.LayeredNetwork;
-import jlqn.gui.panels.ForceUpdatablePanel;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
 import jmt.framework.data.ArrayUtils;
@@ -74,14 +73,14 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
 
     // Column numbers
     private final static int NUM_COL = 8;
-    private final static int COL_DELETE_BUTTON = 0;
+    private final static int COL_VIEW = 0;
     private final static int COL_NAME = 1;
     private final static int COL_PROCESSOR = 2;
     private final static int COL_SCHEDULING = 3;
     private final static int COL_MULTIPLICITY = 4;
     private final static int COL_THINK_TIME_MEAN = 5;
     private final static int COL_PRIORITY = 6;
-    private final static int COL_VIEW_WIZ = 7;
+    private final static int COL_DELETE = 0;
 
     private HoverHelp help;
     private static final String helpText = "<html>In this panel you can define the number of tasks in the system and their properties.<br><br>"
@@ -330,7 +329,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             this.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if ((columnAtPoint(e.getPoint()) == COL_VIEW_WIZ) && getRowCount() > 1) {
+                    if ((columnAtPoint(e.getPoint()) == COL_VIEW) && getRowCount() > 1) {
                         setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                         StringBuilder errors = new StringBuilder();
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
@@ -354,14 +353,14 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             this.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if ((columnAtPoint(e.getPoint()) == COL_DELETE_BUTTON) && getRowCount() > 1) {
+                    if ((columnAtPoint(e.getPoint()) == COL_DELETE) && getRowCount() > 1) {
                         setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                         deleteSelectedTasks();
                     }
                 }
             });
-            getColumnModel().getColumn(COL_DELETE_BUTTON).setMinWidth(20);
-            getColumnModel().getColumn(COL_DELETE_BUTTON).setMaxWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMaxWidth(20);
         }
 
         @Override
@@ -369,9 +368,9 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             //if this is type column, i must render it as a combo box instead of a jtextfield
             if (column == COL_SCHEDULING) {
                 return taskSchedulingComboBoxCell;
-            } else if (column == COL_DELETE_BUTTON) {
+            } else if (column == COL_DELETE) {
                 return deleteButtonCellRenderer;
-            } else if (column == COL_VIEW_WIZ) {
+            } else if (column == COL_VIEW) {
                 return viewWizButtonCellRenderer;
             } else if (column == COL_PROCESSOR) {
                 return taskProcessorComboBoxCell;
@@ -412,8 +411,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
 //        }
 
         void updateViewCommand() {
-            getColumnModel().getColumn(COL_VIEW_WIZ).setMinWidth(30);
-            getColumnModel().getColumn(COL_VIEW_WIZ).setMaxWidth(30);
+            getColumnModel().getColumn(COL_VIEW).setMinWidth(30);
+            getColumnModel().getColumn(COL_VIEW).setMaxWidth(30);
         }
 
         //BEGIN Federico Dall'Orso 14/3/2005
@@ -421,8 +420,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         //Updates appearence of last column's buttons
         void updateDeleteCommand() {
             deleteOneTask.setEnabled(numberOfTasks > 1);
-            getColumnModel().getColumn(COL_DELETE_BUTTON).setMinWidth(20);
-            getColumnModel().getColumn(COL_DELETE_BUTTON).setMaxWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMaxWidth(20);
 
         }
 
