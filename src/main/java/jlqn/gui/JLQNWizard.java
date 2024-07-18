@@ -30,7 +30,6 @@ import jline.solvers.LayeredNetworkAvgTable;
 import jline.solvers.SolverOptions;
 import jline.solvers.ln.SolverLN;
 import jline.solvers.lqns.SolverLQNS;
-import jlqn.gui.plot.JLQNPlot;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
 import jlqn.gui.panels.*;
@@ -51,14 +50,12 @@ import jmt.manual.PDFViewer;
 
 import jmt.gui.common.panels.WarningWindow;
 import jlqn.gui.xml.JLQNModelLoader;
-import org.graphper.draw.ExecuteException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package jlqn.gui.plot;
+package jlqn.gui;
 
 import jline.lang.layered.LayeredNetwork;
 import jline.lang.layered.LayeredNetworkStruct;
@@ -9,6 +9,9 @@ import org.graphper.draw.ExecuteException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
 public class JLQNPlot {
@@ -61,13 +64,46 @@ public class JLQNPlot {
     }
 
     private static void showInFrame(ImageIcon imageIcon) {
-        JFrame mainframe = new JFrame("graph-support");
+        int imageWidth = imageIcon.getIconWidth();
+        int windowWidth = (int) Math.min((int) imageWidth*1.1, 480);
+        int imageHeight = imageIcon.getIconHeight();
+        int windowHeight = (int) Math.min((int) imageHeight*1.1, 640);
+        JFrame mainframe = new JFrame("JLQN Plot");
         JPanel cp = (JPanel) mainframe.getContentPane();
         cp.setLayout(new BorderLayout());
+
         JLabel label = new JLabel(imageIcon);
-        cp.add("Center", label);
+        JScrollPane scrollPane = new JScrollPane(label);
+        cp.add(scrollPane, BorderLayout.CENTER);
+
+        // Add mouse listeners for dragging
+        final Point[] startPoint = {new Point()};
+        scrollPane.getViewport().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    startPoint[0] = SwingUtilities.convertPoint(scrollPane.getViewport(), e.getPoint(), label);
+                }
+            }
+        });
+
+        scrollPane.getViewport().addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    Point dragPoint = SwingUtilities.convertPoint(scrollPane.getViewport(), e.getPoint(), label);
+                    Point viewPosition = scrollPane.getViewport().getViewPosition();
+                    int newX = viewPosition.x - (dragPoint.x - startPoint[0].x);
+                    int newY = viewPosition.y - (dragPoint.y - startPoint[0].y);
+
+                    scrollPane.getViewport().setViewPosition(new Point(newX, newY));
+                }
+            }
+        });
+
         mainframe.pack();
         mainframe.setVisible(true);
+        mainframe.setSize(windowWidth, windowHeight);
     }
 }
 
