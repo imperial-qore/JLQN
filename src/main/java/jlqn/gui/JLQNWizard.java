@@ -31,6 +31,7 @@ import jline.solvers.SolverOptions;
 import jline.solvers.ln.SolverLN;
 import jline.solvers.lqns.SolverLQNS;
 import jlqn.common.JLQNConstants;
+import jlqn.gui.xml.JLQNModelExporter;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
 import jlqn.gui.panels.*;
@@ -74,7 +75,7 @@ public class JLQNWizard extends Wizard {
     private JLabel helpLabel;
 
     private JLQNModelLoader modelLoader = new JLQNModelLoader(JLQNModelLoader.JLQN, JLQNModelLoader.JLQN);
-    private JLQNModelLoader modelExporter = new JLQNModelLoader(JLQNModelLoader.LQX, JLQNModelLoader.LQX);
+    private JLQNModelExporter modelExporter = new JLQNModelExporter(JLQNModelExporter.LQX, JLQNModelExporter.LQX);
 
     //A link to the last modified model's temporary file - used to display synopsis
     private File tempFile = null;
@@ -424,7 +425,7 @@ public class JLQNWizard extends Wizard {
         switch (retval) {
             case JLQNModelLoader.SUCCESS:
                 data.resetChanged();
-                updateTitle(modelExporter.getSelectedFile().getName());
+                //updateTitle(modelExporter.getSelectedFile().getName());
                 break;
             case JLQNModelLoader.FAILURE:
                 JOptionPane.showMessageDialog(this, modelExporter.getFailureMotivation(), "Error", JOptionPane.ERROR_MESSAGE);
