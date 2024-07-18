@@ -305,9 +305,10 @@ public class JLQNWizard extends Wizard {
         tb.setFloatable(false);
 
         //null values add a gap between toolbar icons
-        AbstractJMTAction[] actions = { FILE_NEW, FILE_OPEN, FILE_SAVE, null, ACTION_SOLVE, null, ACTION_PLOT, null, HELP, null };
-        String[] htext = { "Creates a new model", "Opens a saved model", "Saves the current model", "Solves the current model","Plot the current model",
-                "Show help"};
+        AbstractJMTAction[] actions = { FILE_NEW, FILE_OPEN, FILE_SAVE, null, ACTION_SOLVE, null, ACTION_PLOT, null};
+        String[] htext = { "Creates a new model", "Opens a saved model", "Saves the current model", "Solves the current model","Plot the current model"};
+        //AbstractJMTAction[] actions = { FILE_NEW, FILE_OPEN, FILE_SAVE, null, ACTION_SOLVE, null, ACTION_PLOT, null, HELP, null };
+        //String[] htext = { "Creates a new model", "Opens a saved model", "Saves the current model", "Solves the current model","Plot the current model", "Show help"};
         ArrayList<AbstractButton> buttons = new ArrayList<AbstractButton>();
         buttons.addAll(tb.populateToolbar(actions));
 

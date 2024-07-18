@@ -18,18 +18,7 @@ package jlqn.gui.panels;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  * <p>
- * Modification notice:
- * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
- * Modification date: 15-Jul-2024
- * Description of modifications: repurposed for LQN models
- * <p>
- * Modification notice:
- * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
- * Modification date: 15-Jul-2024
- * Description of modifications: repurposed for LQN models
- */
-
-/**
+ *
  * Modification notice:
  * Modified by: Yang Bao, Giuliano Casale, Lingxiao Du, Songtao Li, Zhuoyuan Li, Dan Luo, Zifeng Wang, Yelun Yang
  * Modification date: 15-Jul-2024
@@ -37,6 +26,7 @@ package jlqn.gui.panels;
  */
 
 import jline.lang.layered.LayeredNetwork;
+import jline.solvers.jmt.SolverJMT;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
 import jmt.framework.data.ArrayUtils;
@@ -46,6 +36,8 @@ import jmt.framework.gui.table.editors.ComboBoxCellEditor;
 import jmt.framework.gui.wizard.WizardPanel;
 import jmt.gui.common.CommonConstants;
 import jmt.gui.common.JMTImageLoader;
+import jmt.gui.jsimgraph.mainGui.JSIMGraphMain;
+import jmt.gui.jsimwiz.JSIMWizMain;
 import jmt.gui.table.*;
 
 import jlqn.common.JLQNConstants;
@@ -57,6 +49,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -80,7 +73,7 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
     private final static int COL_MULTIPLICITY = 4;
     private final static int COL_THINK_TIME_MEAN = 5;
     private final static int COL_PRIORITY = 6;
-    private final static int COL_DELETE = 0;
+    private final static int COL_DELETE = 7;
 
     private HoverHelp help;
     private static final String helpText = "<html>In this panel you can define the number of tasks in the system and their properties.<br><br>"
@@ -334,15 +327,25 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                         StringBuilder errors = new StringBuilder();
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
                         if (jw.getData().getViewerType() == ViewerType.WIZ) {
-                            lqnmodel.getLayers().get(lqnmodel.getStruct().nhosts + rowAtPoint(e.getPoint())).jsimwView();
+                            SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            try {
+                                String outputFileName = solver.writeJSIM(solver.getStruct());
+                                JSIMWizMain.main(new String[] { outputFileName });
+                            } catch (ParserConfigurationException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
-                            lqnmodel.getLayers().get(lqnmodel.getStruct().nhosts + rowAtPoint(e.getPoint())).jsimgView();
+                            SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            try {
+                                String outputFileName = solver.writeJSIM(solver.getStruct());
+                                JSIMGraphMain.main(new String[] { outputFileName });
+                            } catch (ParserConfigurationException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         }
                     }
                 }
             });
-            // getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(30);
-            // getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(30);
         }
 
         //BEGIN Federico Dall'Orso 14/3/2005
