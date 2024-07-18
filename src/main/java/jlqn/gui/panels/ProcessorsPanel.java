@@ -32,6 +32,7 @@ package jlqn.gui.panels;
  */
 
 import jline.lang.layered.LayeredNetwork;
+import jline.solvers.jmt.JMTOptions;
 import jline.solvers.jmt.SolverJMT;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
@@ -56,6 +57,9 @@ import javax.swing.table.TableCellRenderer;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -276,6 +280,7 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             enableWizViews();
             //enableGraphViews();
             enableDeletes();
+
             rowHeader.setRowHeight(CommonConstants.ROW_HEIGHT);
             setRowHeight(CommonConstants.ROW_HEIGHT);
 
@@ -305,7 +310,8 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
             tableHeader.setToolTipText(null);
             rowHeader.setToolTipText(null);
             help.addHelp(rowHeader, "Click, SHIFT-click or drag to select processors");
-
+            updateViewCommand();
+            updateDeleteCommand();
         }
 
         /**
@@ -321,8 +327,21 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         }
 
         private void enableWizViews() {
+            CodeSource codeSource = ProcessorsPanel.class.getProtectionDomain().getCodeSource();
+            String jarPath = null;
+            if (codeSource != null) {
+                URL jarUrl = codeSource.getLocation();
+                try {
+                    jarPath = URLDecoder.decode(jarUrl.getPath(), "UTF-8");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Running JAR absolute path: " + jarPath);
+            } else {
+                System.out.println("The code is not running from a JAR file.");
+            }
             viewEnsembleLayerWiz.setEnabled(true);
-            /*It seems the only way to implement row deletion...*/
+            String finalJarPath = jarPath;
             this.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -332,7 +351,12 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
 
                         if (jw.getData().getViewerType() == ViewerType.WIZ) {
-                            SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            SolverJMT solver;
+                            if( finalJarPath != null) {
+                                solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())), new JMTOptions(), finalJarPath);
+                            } else {
+                                solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            }
                             try {
                                 String outputFileName = solver.writeJSIM(solver.getStruct());
                                 JSIMWizMain.main(new String[] { outputFileName });
@@ -341,7 +365,12 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                             }
 
                         } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
-                            SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            SolverJMT solver;
+                            if( finalJarPath != null) {
+                                solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())), new JMTOptions(), finalJarPath);
+                            } else {
+                                solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            }
                             try {
                                 String outputFileName = solver.writeJSIM(solver.getStruct());
                                 JSIMGraphMain.main(new String[] { outputFileName });
@@ -425,8 +454,8 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         //Updates appearance of last column's buttons
         void updateDeleteCommand() {
             deleteOneProcessor.setEnabled(numberOfProcessors > 1);
-            getColumnModel().getColumn(COL_DELETE).setMinWidth(30);
-            getColumnModel().getColumn(COL_DELETE).setMaxWidth(30);
+            getColumnModel().getColumn(COL_DELETE).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMaxWidth(20);
         }
 
         //END Federico Dall'Orso 14/3/2005

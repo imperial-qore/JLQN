@@ -26,6 +26,7 @@ package jlqn.gui.panels;
  */
 
 import jline.lang.layered.LayeredNetwork;
+import jline.solvers.jmt.JMTOptions;
 import jline.solvers.jmt.SolverJMT;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
@@ -52,6 +53,9 @@ import javax.swing.table.TableCellRenderer;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -298,6 +302,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
             rowHeader.setToolTipText(null);
             help.addHelp(rowHeader, "Click, SHIFT-click or drag to select tasks");
 
+            updateViewCommand();
+            updateDeleteCommand();
         }
 
         /**
@@ -317,7 +323,21 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         }
 
         private void enableWizViews() {
+            CodeSource codeSource = ProcessorsPanel.class.getProtectionDomain().getCodeSource();
+            String jarPath = null;
+            if (codeSource != null) {
+                URL jarUrl = codeSource.getLocation();
+                try {
+                    jarPath = URLDecoder.decode(jarUrl.getPath(), "UTF-8");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Running JAR absolute path: " + jarPath);
+            } else {
+                System.out.println("The code is not running from a JAR file.");
+            }
             viewEnsembleLayerWiz.setEnabled(true);
+            String finalJarPath = jarPath;
             /*It seems the only way to implement row deletion...*/
             this.addMouseListener(new MouseAdapter() {
                 @Override
@@ -327,7 +347,12 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                         StringBuilder errors = new StringBuilder();
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
                         if (jw.getData().getViewerType() == ViewerType.WIZ) {
-                            SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            SolverJMT solver;
+                            if( finalJarPath != null) {
+                                solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())), new JMTOptions(), finalJarPath);
+                            } else {
+                                solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            }
                             try {
                                 String outputFileName = solver.writeJSIM(solver.getStruct());
                                 JSIMWizMain.main(new String[] { outputFileName });
@@ -335,7 +360,12 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
                                 throw new RuntimeException(ex);
                             }
                         } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
-                            SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            SolverJMT solver;
+                            if( finalJarPath != null) {
+                                solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())), new JMTOptions(), finalJarPath);
+                            } else {
+                                solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            }
                             try {
                                 String outputFileName = solver.writeJSIM(solver.getStruct());
                                 JSIMGraphMain.main(new String[] { outputFileName });
@@ -423,8 +453,8 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
         //Updates appearence of last column's buttons
         void updateDeleteCommand() {
             deleteOneTask.setEnabled(numberOfTasks > 1);
-            getColumnModel().getColumn(COL_DELETE).setMinWidth(30);
-            getColumnModel().getColumn(COL_DELETE).setMaxWidth(30);
+            getColumnModel().getColumn(COL_DELETE).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE).setMaxWidth(20);
         }
 
         //END Federico Dall'Orso 14/3/2005
