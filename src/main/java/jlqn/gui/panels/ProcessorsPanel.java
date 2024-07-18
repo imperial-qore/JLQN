@@ -677,10 +677,10 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
     private void makeNames() {
         for (int i = 0; i < processorNames.length; i++) {
             if (processorNames[i] == null) {
-                while (areThereDuplicates("Processor" + (nameCounter + 1), i, false)) {
+                while (areThereDuplicates("P" + (nameCounter + 1), i, false)) {
                     nameCounter++;
                 }
-                processorNames[i] = "Processor" + (++nameCounter);
+                processorNames[i] = "P" + (++nameCounter);
             }
         }
     }

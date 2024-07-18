@@ -697,10 +697,10 @@ public final class EntriesPanel extends WizardPanel implements JLQNConstants, jl
     private void makeNames() {
         for (int i = 0; i < entryNames.length; i++) {
             if (entryNames[i] == null) {
-                while (areThereDuplicates("Entry" + (nameCounter+1), i, false)) {
+                while (areThereDuplicates("E" + (nameCounter+1), i, false)) {
                     nameCounter++;
                 }
-                entryNames[i] = "Entry" + (++nameCounter);
+                entryNames[i] = "E" + (++nameCounter);
             }
         }
     }

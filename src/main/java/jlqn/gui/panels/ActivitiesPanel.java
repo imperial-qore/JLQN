@@ -593,10 +593,10 @@ public final class ActivitiesPanel extends WizardPanel implements JLQNConstants,
   private void makeNames() {
     for (int i = 0; i < activityNames.length; i++) {
       if (activityNames[i] == null) {
-        while (areThereDuplicates("Activity" + (nameCounter+1), i, false)) {
+        while (areThereDuplicates("A" + (nameCounter+1), i, false)) {
           nameCounter++;
         }
-        activityNames[i] = "Activity" + (++nameCounter);
+        activityNames[i] = "A" + (++nameCounter);
       }
     }
   }

@@ -601,7 +601,7 @@ public class JLQNModel implements JLQNConstants {
         processorQuantum[0] = 0.0;
 
         processorNames = new String[1];
-        processorNames[0] = "Processor1";
+        processorNames[0] = "P1";
 
         processorScheduling = new int[1];
         processorScheduling[0] = PROCESSOR_INF;
@@ -617,7 +617,7 @@ public class JLQNModel implements JLQNConstants {
 
         numberOfTasks = 1;
         taskNames = new String[1];
-        taskNames[0] = "Task1";
+        taskNames[0] = "T1";
 
         taskProcessor = new String[1];
         taskProcessor[0] = processorNames[0];
@@ -645,14 +645,14 @@ public class JLQNModel implements JLQNConstants {
         entryArrivalRate[0] = 0.0;
 
         entryNames = new String[1];
-        entryNames[0] = "Entry1";
+        entryNames[0] = "E1";
 
         entryTask =  new String[1];
         entryTask[0] = taskNames[0];
 
         numberOfActivities = 1;
         activityNames = new String[1];
-        activityNames[0] = "Activity1";
+        activityNames[0] = "A1";
 
         activityTask = new String[1];
         activityTask[0] = taskNames[0];

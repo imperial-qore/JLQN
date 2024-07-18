@@ -719,10 +719,10 @@ public final class TasksPanel extends WizardPanel implements JLQNConstants, Forc
     private void makeNames() {
         for (int i = 0; i < taskNames.length; i++) {
             if (taskNames[i] == null) {
-                while (areThereDuplicates("Task" + (nameCounter + 1), i, false)) {
+                while (areThereDuplicates("T" + (nameCounter + 1), i, false)) {
                     nameCounter++;
                 }
-                taskNames[i] = "Task" + (++nameCounter);
+                taskNames[i] = "T" + (++nameCounter);
             }
         }
     }

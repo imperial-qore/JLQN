@@ -627,10 +627,10 @@ public final class CallsPanel extends WizardPanel implements JLQNConstants, jlqn
     private void makeNames() {
         for (int i = 0; i < callNames.length; i++) {
             if (callNames[i] == null) {
-                while (areThereDuplicates("Call" + (nameCounter+1), i, false)) {
+                while (areThereDuplicates("C" + (nameCounter+1), i, false)) {
                     nameCounter++;
                 }
-                callNames[i] = "Call" + (++nameCounter);
+                callNames[i] = "C" + (++nameCounter);
             }
         }
     }

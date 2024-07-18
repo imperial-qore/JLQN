@@ -3,9 +3,8 @@ package jlqn.gui.plot;
 import jline.lang.layered.LayeredNetwork;
 import jline.lang.layered.LayeredNetworkStruct;
 import org.graphper.api.*;
-import org.graphper.api.attributes.ArrowShape;
+import org.graphper.api.attributes.*;
 import org.graphper.api.attributes.Color;
-import org.graphper.api.attributes.LineStyle;
 import org.graphper.draw.ExecuteException;
 
 import javax.swing.*;
@@ -20,22 +19,22 @@ public class JLQNPlot {
 
         Node[] hosts = new Node[sn.nhosts];
         for (int h = 0; h < sn.nhosts; h++) {
-            hosts[h] = Node.builder().label(sn.hashnames.get(1 + h)).build();
+            hosts[h] = Node.builder().label(sn.names.get(1 + h)).build();
         }
 
         Node[] tasks = new Node[sn.ntasks];
         for (int t = 0; t < sn.ntasks; t++) {
-            tasks[t] = Node.builder().color(Color.BLUE).label(sn.hashnames.get(1 + sn.nhosts + t)).build();
+            tasks[t] = Node.builder().shape(NodeShapeEnum.RECT).color(Color.BLACK).label(sn.names.get(1 + sn.nhosts + t)).build();
         }
 
         Node[] entries = new Node[sn.nentries];
         for (int e = 0; e < sn.nentries; e++) {
-            entries[e] = Node.builder().color(Color.ORANGE).label(sn.hashnames.get(1 + sn.nhosts + sn.ntasks + e)).build();
+            entries[e] = Node.builder().shape(NodeShapeEnum.PARALLELOGRAM).color(Color.ORANGE).label(sn.names.get(1 + sn.nhosts + sn.ntasks + e)).build();
         }
 
         Node[] acts = new Node[sn.nacts];
         for (int a = 0; a < sn.nacts; a++) {
-            acts[a] = Node.builder().color(Color.GREY).label(sn.hashnames.get(1 + sn.nhosts + sn.ntasks + sn.nentries + a)).build();
+            acts[a] = Node.builder().shape(NodeShapeEnum.PLAIN).color(Color.GREY).label(sn.names.get(1 + sn.nhosts + sn.ntasks + sn.nentries + a)).build();
         }
 
         Graphviz.GraphvizBuilder builder = Graphviz.digraph();

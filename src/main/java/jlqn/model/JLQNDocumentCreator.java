@@ -219,16 +219,24 @@ public class JLQNDocumentCreator {
         switch (precedenceType[precedenceNum]){
             case PRECEDENCE_SEQUENCE:
                 callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "seq");
+                break;
             case PRECEDENCE_OR_FORK:
                 callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "or-fork");
+                break;
             case PRECEDENCE_OR_JOIN:
                 callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "or-join");
+                break;
             case PRECEDENCE_AND_FORK:
                 callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "and-fork");
+                break;
             case PRECEDENCE_AND_JOIN:
                 callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "and-join");
+                break;
             case PRECEDENCE_LOOP:
                 callElement.setAttribute(JLQNDocumentConstants.DOC_PRECEDENCE_TYPE, "loop");
+                break;
+            default:
+                // no-op
         }
         for (int preIdx = 0; preIdx < precedencePreActivity[precedenceNum].length; preIdx++) {
             Element preActivity = root.createElement("precedence-activity");
