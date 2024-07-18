@@ -232,9 +232,7 @@ public class JLQNWizard extends Wizard {
                 LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(data, errors);
                 try {
                     JLQNPlot.plotLQN(lqnmodel);
-                } catch (ExecuteException ex) {
-                    throw new RuntimeException(ex);
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
             }

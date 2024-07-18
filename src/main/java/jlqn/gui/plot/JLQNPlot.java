@@ -53,11 +53,14 @@ public class JLQNPlot {
         }
         Graphviz graphviz = builder.build();
 
-        GraphResource img = graphviz.toFile(FileType.PNG);
-        // now show
+        GraphResource img = graphviz.toFile(FileType.GIF);
         ImageIcon imageIcon = new ImageIcon(img.bytes(), "graphviz");
         img.close();
 
+        showInFrame(imageIcon);
+    }
+
+    private static void showInFrame(ImageIcon imageIcon) {
         JFrame mainframe = new JFrame("graph-support");
         JPanel cp = (JPanel) mainframe.getContentPane();
         cp.setLayout(new BorderLayout());

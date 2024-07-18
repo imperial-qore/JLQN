@@ -32,6 +32,7 @@ package jlqn.gui.panels;
  */
 
 import jline.lang.layered.LayeredNetwork;
+import jline.solvers.jmt.SolverJMT;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
 import jmt.framework.data.ArrayUtils;
@@ -40,6 +41,8 @@ import jmt.framework.gui.table.editors.ButtonCellEditor;
 import jmt.framework.gui.wizard.WizardPanel;
 import jmt.gui.common.CommonConstants;
 import jmt.gui.common.JMTImageLoader;
+import jmt.gui.jsimgraph.mainGui.JSIMGraphMain;
+import jmt.gui.jsimwiz.JSIMWizMain;
 import jmt.gui.table.*;
 
 import jlqn.common.JLQNConstants;
@@ -50,6 +53,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -70,13 +74,13 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
 
     // Column numbers
     private final static int NUM_COLS = 6;
+    private final static int COL_DELETE_BUTTON = 5;
     private final static int COL_NAME = 1;
     private final static int COL_SCHEDULING = 2;
     private final static int COL_MULTIPLICITY = 3;
     private final static int COL_SPEED_FACTOR = 4;
-    private final static int COL_VIEW_WIZ = 5;
-    private final static int COL_VIEW_GRAPH = 6;
-    private final static int COL_DELETE_BUTTON = 0;
+    private final static int COL_VIEW_WIZ = 0;
+    private final static int COL_VIEW_GRAPH = 0;
 
     private HoverHelp help;
     private static final String helpText = "<html>In this panel you can define the number of processors in the system and their properties.<br><br>"
@@ -330,37 +334,27 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                         LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
 
                         if (jw.getData().getViewerType() == ViewerType.WIZ) {
-                            lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimwView();
+                            SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            try {
+                                String outputFileName = solver.writeJSIM(solver.getStruct());
+                                JSIMWizMain.main(new String[] { outputFileName });
+                            } catch (ParserConfigurationException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         } else if (jw.getData().getViewerType() == ViewerType.GRAPH) {
-                            lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimgView();
+                            SolverJMT solver = new SolverJMT(lqnmodel.getLayers().get(rowAtPoint(e.getPoint())));
+                            try {
+                                String outputFileName = solver.writeJSIM(solver.getStruct());
+                                JSIMGraphMain.main(new String[] { outputFileName });
+                            } catch (ParserConfigurationException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         }
                     }
                 }
             });
-            // getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(30);
-            // getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(30);
         }
 
-        private void enableGraphViews() {
-            viewEnsembleLayerGraph.setEnabled(true);
-            /*It seems the only way to implement row deletion...*/
-            this.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if ((columnAtPoint(e.getPoint()) == COL_VIEW_GRAPH) && getRowCount() > 1) {
-                        setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
-                        StringBuilder errors = new StringBuilder();
-                        LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN(jw.getData(), errors);
-                        //System.out.println(rowAtPoint(e.getPoint()));
-                        lqnmodel.getLayers().get(rowAtPoint(e.getPoint())).jsimgView();
-                    }
-                }
-            });
-            //getColumnModel().getColumn(getColumnCount() - 1).setMinWidth(30);
-            //getColumnModel().getColumn(getColumnCount() - 1).setMaxWidth(30);
-        }
-
-        //BEGIN Federico Dall'Orso 14/3/2005
         /*enables deleting operations with last column's button*/
         private void enableDeletes() {
             deleteOneProcessor.setEnabled(numberOfProcessors > 1);
@@ -436,8 +430,8 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
         //Updates appearance of last column's buttons
         void updateDeleteCommand() {
             deleteOneProcessor.setEnabled(numberOfProcessors > 1);
-            getColumnModel().getColumn(0).setMinWidth(20);
-            getColumnModel().getColumn(0).setMaxWidth(20);
+            getColumnModel().getColumn(COL_DELETE_BUTTON).setMinWidth(20);
+            getColumnModel().getColumn(COL_DELETE_BUTTON).setMaxWidth(20);
         }
 
         //END Federico Dall'Orso 14/3/2005
