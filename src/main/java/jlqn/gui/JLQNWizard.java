@@ -30,6 +30,7 @@ import jline.solvers.LayeredNetworkAvgTable;
 import jline.solvers.SolverOptions;
 import jline.solvers.ln.SolverLN;
 import jline.solvers.lqns.SolverLQNS;
+import jlqn.common.JLQNConstants;
 import jlqn.model.JLQNModel;
 import jlqn.model.SetLayeredNetwork;
 import jlqn.gui.panels.*;
@@ -72,7 +73,8 @@ public class JLQNWizard extends Wizard {
 
     private JLabel helpLabel;
 
-    private JLQNModelLoader modelLoader = new JLQNModelLoader(JLQNModelLoader.JLQN, JLQNModelLoader.ALL_SAVE);
+    private JLQNModelLoader modelLoader = new JLQNModelLoader(JLQNModelLoader.JLQN, JLQNModelLoader.JLQN);
+    private JLQNModelLoader modelExporter = new JLQNModelLoader(JLQNModelLoader.LQX, JLQNModelLoader.LQX);
 
     //A link to the last modified model's temporary file - used to display synopsis
     private File tempFile = null;
@@ -156,7 +158,7 @@ public class JLQNWizard extends Wizard {
     };
 
     //GUI listener to save model to a file
-    private AbstractJMTAction FILE_SAVE = new AbstractJMTAction("Save as ...") {
+    private AbstractJMTAction FILE_SAVEAS = new AbstractJMTAction("Save as ...") {
 
         private static final long serialVersionUID = 1L;
 
@@ -169,6 +171,25 @@ public class JLQNWizard extends Wizard {
 
         public void actionPerformed(ActionEvent e) {
             save();
+        }
+
+    };
+
+
+    //GUI listener to save model to a file
+    private AbstractJMTAction FILE_EXPORT = new AbstractJMTAction("Export to LQNX ...") {
+
+        private static final long serialVersionUID = 1L;
+
+        {
+            putValue(Action.SHORT_DESCRIPTION, "Export to LQNX ...");
+            setIcon("ServerComp", JMTImageLoader.getImageLoader());
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+            putValue(Action.MNEMONIC_KEY, new Integer(KeyEvent.VK_S));
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            export();
         }
 
     };
@@ -284,7 +305,7 @@ public class JLQNWizard extends Wizard {
     private JMTMenuBar makeMenubar() {
         JMTMenuBar jmb = new JMTMenuBar(JMTImageLoader.getImageLoader());
         AbstractJMTAction[] menuItems = new AbstractJMTAction[] {
-                new MenuAction("File", new AbstractJMTAction[] { FILE_NEW, FILE_OPEN, FILE_SAVE, null, FILE_EXIT }),
+                new MenuAction("File", new AbstractJMTAction[] { FILE_NEW, FILE_OPEN, FILE_SAVEAS, FILE_EXPORT, null, FILE_EXIT }),
                 new MenuAction("Action", new AbstractJMTAction[] { ACTION_SOLVE, /*ACTION_RANDOMIZE_MODEL, null, SWITCH_TO_SIMULATOR,*/ null,
                         ACTION_NEXT, ACTION_PREV }),
                 //new MenuAction("Help", new AbstractJMTAction[] { HELP, null, ABOUT })
@@ -302,7 +323,7 @@ public class JLQNWizard extends Wizard {
         tb.setFloatable(false);
 
         //null values add a gap between toolbar icons
-        AbstractJMTAction[] actions = { FILE_NEW, FILE_OPEN, FILE_SAVE, null, ACTION_SOLVE, null, ACTION_PLOT, null};
+        AbstractJMTAction[] actions = { FILE_NEW, FILE_OPEN, FILE_SAVEAS, null, ACTION_SOLVE, null, ACTION_PLOT, null};
         String[] htext = { "Creates a new model", "Opens a saved model", "Saves the current model", "Solves the current model","Plot the current model"};
         //AbstractJMTAction[] actions = { FILE_NEW, FILE_OPEN, FILE_SAVE, null, ACTION_SOLVE, null, ACTION_PLOT, null, HELP, null };
         //String[] htext = { "Creates a new model", "Opens a saved model", "Saves the current model", "Solves the current model","Plot the current model", "Show help"};
@@ -311,6 +332,7 @@ public class JLQNWizard extends Wizard {
 
         //adds the algorithm selection box
 
+        this.getData().setViewType(JLQNConstants.ViewerType.WIZ);
         dropDownPanels = new DropDownPanels(this);
         tb.add(dropDownPanels);
 
@@ -388,6 +410,26 @@ public class JLQNWizard extends Wizard {
             }
         }
         return false;
+    }
+
+    /**
+     * Saves current model
+     */
+    private void export() {
+        currentPanel.lostFocus();
+        if (!checkFinish()) {
+            return; // panels with problems are expected to notify the user by themselves
+        }
+        int retval = modelExporter.exportModel(data, this, null);
+        switch (retval) {
+            case JLQNModelLoader.SUCCESS:
+                data.resetChanged();
+                updateTitle(modelExporter.getSelectedFile().getName());
+                break;
+            case JLQNModelLoader.FAILURE:
+                JOptionPane.showMessageDialog(this, modelExporter.getFailureMotivation(), "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
     }
 
     /**
@@ -501,7 +543,6 @@ public class JLQNWizard extends Wizard {
                 try {
                     SolverLQNS lqnsSolver = new SolverLQNS(lqnmodel);
                     final LayeredNetworkAvgTable lqnsAvgTable = lqnsSolver.getAvgTable();
-                    lqnsAvgTable.printTable();
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
@@ -539,6 +580,26 @@ public class JLQNWizard extends Wizard {
                 }
                 break;
         }
+        // This section is needed to refresh the value of the viewer as it seems to be lost upon solve
+        String viewType = (String) dropDownPanels.viewTypes.getSelectedItem();
+        JLQNConstants.ViewerType type = null;
+        switch (viewType) {
+            case "JSIMwiz":
+                type = JLQNConstants.ViewerType.WIZ;
+                break;
+            case "JSIMgraph":
+                type = JLQNConstants.ViewerType.GRAPH;
+                break;
+            default:
+        }
+        JLQNModel data = dropDownPanels.jw.getData();
+        synchronized (data) {
+            if (data.getViewerType() != type) {
+                //System.out.printf("Viewer refreshed to %s%n", type);
+                data.setViewType(type);
+            }
+        }
+        // Now update and show the resutls
         updatePanels();
         currentPanel.gotFocus();
     }

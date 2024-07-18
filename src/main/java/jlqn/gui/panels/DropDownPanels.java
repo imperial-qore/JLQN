@@ -43,9 +43,9 @@ public class DropDownPanels extends JPanel {
   private static final String VIEWER_LABEL = "Layer Viewer:";
 
   private HoverHelp help;
-  private JLQNWizard jw;
-  private JComboBox<String> solverTypes;
-  private JComboBox<String> viewTypes;
+  public JLQNWizard jw;
+  public JComboBox<String> solverTypes;
+  public JComboBox<String> viewTypes;
   private JLabel solverLabel;
   private JLabel viewerLabel;
 

@@ -37,6 +37,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+import jline.lang.layered.LayeredNetwork;
+import jlqn.model.SetLayeredNetwork;
 import jmt.framework.xml.XMLUtils;
 import jmt.gui.common.Defaults;
 import jmt.gui.common.xml.*;
@@ -51,11 +53,11 @@ public class JLQNModelLoader {
      */
     public static final JmtFileFilter ALL = new JmtFileFilter(".jlqn; .lqnx; .xml", "All JLQN data files");
     public static final JmtFileFilter JLQN = new JmtFileFilter(".jlqn", "JLQN data file");
-    public static final JmtFileFilter JLQX = new JmtFileFilter(".lqnx; .xml", "LQNX data file");
+    public static final JmtFileFilter LQX = new JmtFileFilter(".lqnx; .xml", "LQNX data file");
 
-    public static final JmtFileFilter ALL_SAVE = new JmtFileFilter(".jlqn; .lqnx; .xml", "All JLQN data files");
+    //public static final JmtFileFilter ALL_SAVE = new JmtFileFilter(".jlqn; .lqnx; .xml", "All JLQN data files");
     //public static final JmtFileFilter JLQN_SAVE = new JmtFileFilter(".jlqn", "JLQN data file");
-    //public static final JmtFileFilter JLQX_SAVE = new JmtFileFilter(".lqnx; .xml", "JLQN data file");
+    //public static final JmtFileFilter LQX_SAVE = new JmtFileFilter(".lqnx; .xml", "JLQN data file");
 
     /**
      * Constants used for output
@@ -261,6 +263,65 @@ public class JLQNModelLoader {
     }
     // --------------------------------------------------------------------------------------------
 
+        // --- Methods used to save models ------------------------------------------------------------
+    /**
+     * Saves specified model into specified file or shows save as window if file is null
+     * @param modelData data file where information should be stored. Note that <b>its type
+     * must be compatible with defaultFilter chosen in the constructor</b>, otherwise a
+     * ClassCastException will be thrown
+     * @param parent parent window that will own the save as dialog
+     * @param file location where pecified model must be saved or null if save as must be shown
+     * @return SUCCESS on success, CANCELLED if loading is cancelled,
+     * FAILURE if an error occurs
+     * @throws ClassCastException if modelData is not of instance of the correct class
+     * @see #getFailureMotivation getFailureMotivation()
+     */
+    public int exportModel(Object modelData, Component parent, File file) {
+        if (file == null) {
+            // Shows save as window
+            int status;
+            status = this.showSaveDialog(parent);
+            if (status == JFileChooser.CANCEL_OPTION) {
+                return CANCELLED;
+            } else if (status == JFileChooser.ERROR_OPTION) {
+                failureMotivation = "Error selecting output file";
+                return FAILURE;
+            }
+            file = dialog.getSelectedFile();
+        } else {
+            // Check extension to avoid saving over a converted file
+            boolean hasValidExtension = false;
+            String[] extensions = defaultSaveFilter.getExtensions();
+            for (String e : extensions) {
+                if (file.getName().toLowerCase().endsWith(e)) {
+                    hasValidExtension = true;
+                    break;
+                }
+            }
+            if (!hasValidExtension) {
+                int resultValue = JOptionPane.showConfirmDialog(parent, "<html>File <font color=#0000ff>" + file.getName()
+                                + "</font> does not have valid extension.<br>Do you want to replace it anyway?</html>", "JMT - Warning",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (resultValue != JOptionPane.OK_OPTION) {
+                    return CANCELLED;
+                }
+            }
+        }
+
+        // Now checks to save correct type of model
+        try {
+            StringBuilder errors = new StringBuilder();
+            LayeredNetwork lqnmodel = SetLayeredNetwork.SetLayeredNetworkFromJLQN((JLQNModel) modelData, errors);
+            lqnmodel.writeXML(file.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+            failureMotivation = e.getClass().getName() + ": " + e.getMessage();
+            return FAILURE;
+        }
+        return SUCCESS;
+    }
+    // --------------------------------------------------------------------------------------------
+
     // --- Methods to open and parse files --------------------------------------------------------
     protected int getXmlFileType(String fileName) {
         // Opens without validating (as we do not know document type)
@@ -287,10 +348,10 @@ public class JLQNModelLoader {
     protected void addCompatibleFilters() {
         dialog.addChoosableFileFilter(ALL);
         if (defaultFilter == JLQN) {
-            dialog.addChoosableFileFilter(JLQX);
+            dialog.addChoosableFileFilter(LQX);
             dialog.addChoosableFileFilter(JLQN);
         } else {
-            dialog.addChoosableFileFilter(JLQX);
+            dialog.addChoosableFileFilter(LQX);
             dialog.addChoosableFileFilter(JLQN);
         }
         dialog.setFileFilter(ALL);

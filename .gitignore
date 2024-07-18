@@ -4,8 +4,7 @@
 /target/maven-archiver/
 /target/test-classes/
 /target/site/
-/target/jlqn-1.0.jar
+/target/jlqn-1.0*
 /target/original-jlqn-singlejar.jar
 /examples/small-example.jlqn
 result.xml
-
