@@ -18,7 +18,7 @@ The JLQN GUI is shipped with the LN solver (Java version) of [LINE](https://line
 This version of JLQN takes the following assumptions: 
 * All demands are exponentially distributed with the specified mean.
 * No forwarding calls.
-* A single replyTo activity for each entry.
+* A single activity can reply for each entry.
 
 ## Solver assumptions
 LN (as of [LINE](https://github.com/imperial-qore/line-solver) 2.0.35):
