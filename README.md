@@ -1,5 +1,5 @@
 # JLQN
-Java GUI for layered queueing network specification
+Java GUI for layered queueing network specification (alpha version)
 
 ## Getting started
 You can launch the GUI using:
