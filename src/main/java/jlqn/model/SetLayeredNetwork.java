@@ -229,7 +229,7 @@ public class SetLayeredNetwork {
                     associatedTask.addPrecedence(andJoin);
                     break;
                 case PRECEDENCE_LOOP: // LOOP
-                    Matrix loopParam = new Matrix(postParams[0]);
+                    Matrix loopParam = Matrix.singleton(postParams[0]);
                     ActivityPrecedence loop = ActivityPrecedence.Loop(preActs[0],Arrays.asList(postActs), loopParam);
                     associatedTask.addPrecedence(loop);
                     break;
