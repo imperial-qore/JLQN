@@ -128,9 +128,9 @@
                         <artifactId>maven-compiler-plugin</artifactId>
                         <version>2.3.2</version>
                         <configuration>
-                            <compilerVersion>1.8</compilerVersion>
-                            <source>1.8</source>
-                            <target>1.8</target>
+                            <compilerVersion>20</compilerVersion>
+                            <source>20</source>
+                            <target>20</target>
                             <excludes>
                                 <exclude>**/plugin/**</exclude>
                             </excludes>
