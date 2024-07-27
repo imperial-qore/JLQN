@@ -40,8 +40,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -63,7 +63,7 @@
         </repository>
         <repository>
             <id>line-solver-mvn-repo</id>
-            <url>https://raw.githubusercontent.com/imperial-qore/line-solver/main/maven/mvn-artifact/</url>
+            <url>https://raw.githubusercontent.com/imperial-qore/line-solver/main/maven/mvn-artifact-with-dependencies/</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -128,9 +128,9 @@
                         <artifactId>maven-compiler-plugin</artifactId>
                         <version>2.3.2</version>
                         <configuration>
-                            <compilerVersion>20</compilerVersion>
-                            <source>20</source>
-                            <target>20</target>
+                            <compilerVersion>1.8</compilerVersion>
+                            <source>1.8</source>
+                            <target>1.8</target>
                             <excludes>
                                 <exclude>**/plugin/**</exclude>
                             </excludes>
