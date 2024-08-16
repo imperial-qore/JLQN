@@ -20,13 +20,12 @@ The JLQN GUI is shipped with the LN solver (Java version) of [LINE](https://line
 This version of JLQN takes the following assumptions: 
 * All demands are exponentially distributed with the specified mean.
 * No forwarding calls.
-* A single activity can reply for each entry.
+* A single activity can reply to an entry.
 
 ## Solver assumptions
 LN (as of [LINE](https://line-solver.sf.net/) version 2.0.36):
 * SRVN layering.
 * Activities modelled as successive visits to the server.
-* A single activity can reply to an entry.
   
 LQNS:
 * Batch layering.
