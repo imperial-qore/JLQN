@@ -29,7 +29,7 @@ LN (as of [LINE](https://line-solver.sf.net/) version 2.0.36):
   
 LQNS:
 * Batch layering.
-* Activities modelled as phases.
+* Activities modelled as service phases.
 
 ## License
 GNU General Public License v2.0. 
