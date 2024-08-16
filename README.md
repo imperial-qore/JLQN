@@ -25,7 +25,7 @@ This version of JLQN takes the following assumptions:
 ## Solver assumptions
 LN (as of [LINE](https://line-solver.sf.net/) version 2.0.36):
 * SRVN layering.
-* Activities modelled as successive visits.
+* Activities modelled as successive visits to the server.
   
 LQNS:
 * Batch layering.
