@@ -1722,8 +1722,7 @@ public class JLQNModel implements JLQNConstants {
     }
     public boolean setEntryPriority(int[] entryPriority) {
         if (entryPriority.length != numberOfEntries) {
-
-            throw new IllegalArgumentException("entryArrivalRate.length!=numberOfEntries");
+            throw new IllegalArgumentException("entryPriority.length!=numberOfEntries");
         }
 
 
@@ -1883,7 +1882,7 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setPrecedencePostActivities(String[][] precedencePostActivities) {
         if (precedencePostActivities.length != numberOfPrecedences) {
-            throw new IllegalArgumentException("precedencePostActitivies.length!=numberOfPrecedences");
+            throw new IllegalArgumentException("precedencePostActivities.length!=numberOfPrecedences");
         }
         boolean changesPresent = false;
         if (this.precedencePostActivities.length == precedencePostActivities.length) {
