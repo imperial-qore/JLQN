@@ -65,9 +65,7 @@
         </repository>
         <repository>
             <id>line-solver-mvn-repo</id>
-            <url>
-                https://raw.githubusercontent.com/imperial-qore/line-solver/main/maven/mvn-artifact-with-dependencies/
-            </url>
+            <url>https://line-solver.sourceforge.net/maven/mvn-artifact-with-dependencies/</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -205,6 +203,11 @@
             <groupId>org.graphper</groupId>
             <artifactId>graph-support</artifactId>
             <version>1.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>3.8.6</version>
         </dependency>
     </dependencies>
 </project>

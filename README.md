@@ -33,3 +33,10 @@ LQNS:
 
 ## License
 GNU General Public License v2.0. 
+
+## Regenerating Maven Artifacts
+To regenerate the JARs located under `maven/mvn-artifact`, run the following command:
+```bash
+mvn deploy
+```
+This will deploy the build artifacts to the local project repository.

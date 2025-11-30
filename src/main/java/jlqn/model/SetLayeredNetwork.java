@@ -2,14 +2,14 @@ package jlqn.model;
 
 import jline.lang.constant.SchedStrategy;
 import jline.lang.layered.*;
-import jline.util.Matrix;
+import jline.util.matrix.Matrix;
 import jmt.framework.data.ArrayUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static jline.io.SysUtils.lineTempName;
+import static jline.io.SysUtilsKt.lineTempName;
 import static jlqn.common.JLQNConstants.*;
 
 public class SetLayeredNetwork {
@@ -93,14 +93,14 @@ public class SetLayeredNetwork {
 
         // Initialise base components (processors, tasks, etc)
         for (int p = 0; p < processors; p++) {
-            SchedStrategy procSched = SchedStrategy.fromLINEString(processorSchedAbbr[processorScheduling[p]]);
+            SchedStrategy procSched = SchedStrategy.valueOf(processorSchedAbbr[processorScheduling[p]].toUpperCase());
             Processor newProc = new Processor(myLN, processorNames[p], processorMultiplicity[p], procSched, 0.001, processorSF[p]);
             newProc.setReplication(processorReplicas[p]);
             processorMap.put(processorNames[p], newProc);
         }
 
         for (int t = 0; t < tasks; t++) {
-            SchedStrategy taskSched = SchedStrategy.fromLINEString(taskSchedAbbr[taskScheduling[t]]);
+            SchedStrategy taskSched = SchedStrategy.valueOf(taskSchedAbbr[taskScheduling[t]].toUpperCase());
             Task newTask = new Task(myLN, taskNames[t], taskMultiplicity[t], taskSched);
             // TODO: This works with LN solver but not with LQNS:
 //            newTask.setThinkTime(new Exp(taskThinkTimeMean[t]));
@@ -196,7 +196,7 @@ public class SetLayeredNetwork {
                     for (int i = 0; i < preActs.length - 1; i++) {
                         String curr = preActs[i];
                         String next = preActs[i + 1];
-                        sequence = ActivityPrecedence.Sequence(curr, next);
+                        sequence = ActivityPrecedence.Serial(curr, next);
                         associatedTask.addPrecedence(sequence);
                     }
                     break;
@@ -243,7 +243,7 @@ public class SetLayeredNetwork {
     public static void outputXML(LayeredNetwork myLN) {
         try {
             File file = new File("");
-            String tmpFileName = lineTempName() + ".xml";
+            String tmpFileName = lineTempName("jlqn") + ".xml";
             System.out.println("\nWriting solver output to temporary file: "+ tmpFileName);
             myLN.writeXML(tmpFileName, true);
         } catch (IOException e) {
