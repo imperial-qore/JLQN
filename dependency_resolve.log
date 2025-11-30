@@ -1,0 +1,132 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----------------------------< [0;36mjlqn:jlqn[0;1m >------------------------------[m
+[[1;34mINFO[m] [1mBuilding jlqn 1.0-alpha[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[90mDownloading from [0mlocal-repo[90m: file:/home/gcasale/Dropbox/code/JLQN/repo/[0morg/apache/maven/maven-model/3.8.6/maven-model-3.8.6.pom
+[90mDownloading from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/apache/maven/maven-model/3.8.6/maven-model-3.8.6.pom
+Progress (1): 2.8 kB                    Downloaded[90m from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/apache/maven/maven-model/3.8.6/maven-model-3.8.6.pom[90m (2.8 kB at 9.8 kB/s)[0m
+[90mDownloading from [0mlocal-repo[90m: file:/home/gcasale/Dropbox/code/JLQN/repo/[0morg/apache/maven/maven/3.8.6/maven-3.8.6.pom
+[90mDownloading from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/apache/maven/maven/3.8.6/maven-3.8.6.pom
+Progress (1): 4.1 kBProgress (1): 8.2 kBProgress (1): 12 kB Progress (1): 16 kBProgress (1): 20 kBProgress (1): 25 kBProgress (1): 27 kB                   Downloaded[90m from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/apache/maven/maven/3.8.6/maven-3.8.6.pom[90m (27 kB at 355 kB/s)[0m
+[90mDownloading from [0mlocal-repo[90m: file:/home/gcasale/Dropbox/code/JLQN/repo/[0morg/codehaus/plexus/plexus-utils/3.3.1/plexus-utils-3.3.1.pom
+[90mDownloading from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/codehaus/plexus/plexus-utils/3.3.1/plexus-utils-3.3.1.pom
+Progress (1): 4.1 kBProgress (1): 5.3 kB                    Downloaded[90m from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/codehaus/plexus/plexus-utils/3.3.1/plexus-utils-3.3.1.pom[90m (5.3 kB at 89 kB/s)[0m
+[90mDownloading from [0mlocal-repo[90m: file:/home/gcasale/Dropbox/code/JLQN/repo/[0morg/apache/maven/maven-model/3.8.6/maven-model-3.8.6.jar
+[90mDownloading from [0mlocal-repo[90m: file:/home/gcasale/Dropbox/code/JLQN/repo/[0morg/codehaus/plexus/plexus-utils/3.3.1/plexus-utils-3.3.1.jar
+[90mDownloading from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/apache/maven/maven-model/3.8.6/maven-model-3.8.6.jar
+Progress (1): 2.3/216 kBProgress (1): 5.0/216 kBProgress (1): 7.7/216 kBProgress (1): 10/216 kB Progress (1): 13/216 kBProgress (1): 16/216 kBProgress (1): 19/216 kBProgress (1): 21/216 kBProgress (1): 24/216 kBProgress (1): 27/216 kBProgress (1): 30/216 kBProgress (1): 32/216 kBProgress (1): 35/216 kBProgress (1): 39/216 kBProgress (1): 43/216 kBProgress (1): 47/216 kBProgress (1): 52/216 kBProgress (1): 56/216 kBProgress (1): 60/216 kBProgress (1): 64/216 kBProgress (1): 68/216 kBProgress (1): 70/216 kBProgress (1): 74/216 kBProgress (1): 78/216 kBProgress (1): 82/216 kBProgress (1): 86/216 kBProgress (1): 91/216 kBProgress (1): 95/216 kBProgress (1): 99/216 kBProgress (1): 103/216 kBProgress (1): 107/216 kBProgress (1): 111/216 kBProgress (1): 115/216 kBProgress (1): 119/216 kBProgress (1): 123/216 kBProgress (1): 127/216 kBProgress (1): 131/216 kBProgress (1): 136/216 kBProgress (1): 138/216 kBProgress (1): 142/216 kBProgress (1): 146/216 kBProgress (1): 150/216 kBProgress (1): 154/216 kBProgress (1): 158/216 kBProgress (1): 162/216 kBProgress (1): 166/216 kBProgress (1): 170/216 kBProgress (1): 175/216 kBProgress (1): 179/216 kBProgress (1): 183/216 kBProgress (1): 187/216 kBProgress (1): 191/216 kBProgress (1): 195/216 kBProgress (1): 199/216 kBProgress (1): 203/216 kBProgress (1): 207/216 kBProgress (1): 211/216 kBProgress (1): 216/216 kBProgress (1): 216 kB                        Downloaded[90m from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/apache/maven/maven-model/3.8.6/maven-model-3.8.6.jar[90m (216 kB at 2.2 MB/s)[0m
+[90mDownloading from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/codehaus/plexus/plexus-utils/3.3.1/plexus-utils-3.3.1.jar
+Progress (1): 4.1/262 kBProgress (1): 7.7/262 kBProgress (1): 12/262 kB Progress (1): 16/262 kBProgress (1): 20/262 kBProgress (1): 24/262 kBProgress (1): 28/262 kBProgress (1): 32/262 kBProgress (1): 36/262 kBProgress (1): 40/262 kBProgress (1): 45/262 kBProgress (1): 49/262 kBProgress (1): 53/262 kBProgress (1): 57/262 kBProgress (1): 61/262 kBProgress (1): 65/262 kBProgress (1): 69/262 kBProgress (1): 73/262 kBProgress (1): 77/262 kBProgress (1): 81/262 kBProgress (1): 86/262 kBProgress (1): 90/262 kBProgress (1): 94/262 kBProgress (1): 98/262 kBProgress (1): 102/262 kBProgress (1): 106/262 kBProgress (1): 110/262 kBProgress (1): 114/262 kBProgress (1): 118/262 kBProgress (1): 122/262 kBProgress (1): 127/262 kBProgress (1): 131/262 kBProgress (1): 135/262 kBProgress (1): 139/262 kBProgress (1): 143/262 kBProgress (1): 147/262 kBProgress (1): 151/262 kBProgress (1): 155/262 kBProgress (1): 159/262 kBProgress (1): 163/262 kBProgress (1): 167/262 kBProgress (1): 172/262 kBProgress (1): 176/262 kBProgress (1): 180/262 kBProgress (1): 184/262 kBProgress (1): 188/262 kBProgress (1): 192/262 kBProgress (1): 196/262 kBProgress (1): 200/262 kBProgress (1): 204/262 kBProgress (1): 208/262 kBProgress (1): 213/262 kBProgress (1): 217/262 kBProgress (1): 221/262 kBProgress (1): 225/262 kBProgress (1): 229/262 kBProgress (1): 233/262 kBProgress (1): 237/262 kBProgress (1): 241/262 kBProgress (1): 245/262 kBProgress (1): 249/262 kBProgress (1): 253/262 kBProgress (1): 258/262 kBProgress (1): 262/262 kBProgress (1): 262 kB                        Downloaded[90m from [0mcentral[90m: https://repo.maven.apache.org/maven2/[0morg/codehaus/plexus/plexus-utils/3.3.1/plexus-utils-3.3.1.jar[90m (262 kB at 2.8 MB/s)[0m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mdependency:3.7.0:resolve[m [1m(default-cli)[m @ [36mjlqn[0;1m ---[m
+[[1;34mINFO[m] Can't extract module name from looks-2.2.2.jar: Provider class ﻿ not in JAR file looks-2.2.2.jar
+[[1;34mINFO[m] Can't extract module name from fest-assert-1.2.jar: fest.assert: Invalid module name: 'assert' is not a Java identifier
+[[1;34mINFO[m] Can't extract module name from fr.lip6.pnml.framework.3rdpartimports-2.2.12.jar: fr.lip6.pnml.framework.3rdpartimports: Invalid module name: '3rdpartimports' is not a Java identifier
+[[1;34mINFO[m] Can't extract module name from commons-rng-parent-1.4.pom: Module format not recognized: /home/gcasale/.m2/repository/org/apache/commons/commons-rng-parent/1.4/commons-rng-parent-1.4.pom
+[[1;34mINFO[m] 
+[[1;34mINFO[m] The following files have been resolved:
+[[1;34mINFO[m]    jmt:jmt:jar:latest:compile[36m -- module jmt.latest[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.qore:kpc-toolbox-java:jar:1.0.0:compile[36m -- module kpc.toolbox.java[0;1;33m (auto)[m
+[[1;34mINFO[m]    net.objecthunter:exp4j:jar:0.4.8:compile[36m -- module exp4j[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphics2d:jar:2.4:compile[36m -- module freehep.graphics2d[0;1;33m (auto)[m
+[[1;34mINFO[m]    junit:junit:jar:4.10:compile[36m -- module junit[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.hamcrest:hamcrest-core:jar:1.1:compile[36m -- module hamcrest.core[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsbase:jar:2.4:compile[36m -- module freehep.graphicsbase[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-io:jar:2.2.2:compile[36m -- module freehep.io[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsio:jar:2.4:compile[36m -- module freehep.graphicsio[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsio-emf:jar:2.4:compile[36m -- module freehep.graphicsio.emf[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsio-tests:jar:2.4:compile[36m -- module freehep.graphicsio.tests[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsio-swf:jar:2.4:compile[36m -- module freehep.graphicsio.swf[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsio-svg:jar:2.4:compile[36m -- module freehep.graphicsio.svg[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsio-pdf:jar:2.4:compile[36m -- module freehep.graphicsio.pdf[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsio-ps:jar:2.4:compile[36m -- module freehep.graphicsio.ps[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.freehep:freehep-graphicsio-java:jar:2.4:compile[36m -- module freehep.graphicsio.java[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.uispec4j:uispec4j:jar:2.4:compile[36m -- module uispec4j[0;1;33m (auto)[m
+[[1;34mINFO[m]    oro:oro:jar:2.0.8:compile[36m -- module oro[0;1;33m (auto)[m
+[[1;34mINFO[m]    gov.nist.math:jama:jar:1.0.1:compile[36m -- module jama[0;1;33m (auto)[m
+[[1;34mINFO[m]    log4j:log4j:jar:1.2.17:compile[36m -- module log4j[0;1;33m (auto)[m
+[[1;34mINFO[m]    com.jgoodies:looks:jar:2.2.2:compile
+[[1;34mINFO[m]    org.apache.pdfbox:pdfbox:jar:2.0.24:compile[36m -- module org.apache.pdfbox[0;1m [auto][m
+[[1;34mINFO[m]    org.apache.pdfbox:fontbox:jar:2.0.24:compile[36m -- module org.apache.fontbox[0;1m [auto][m
+[[1;34mINFO[m]    commons-logging:commons-logging:jar:1.2:compile[36m -- module commons.logging[0;1;33m (auto)[m
+[[1;34mINFO[m]    xerces:xercesImpl:jar:2.12.2:compile[36m -- module xercesImpl[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.easytesting:fest-swing:jar:1.2.1:compile[36m -- module fest.swing[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.easytesting:fest-assert:jar:1.2:compile
+[[1;34mINFO[m]    org.easytesting:fest-reflect:jar:1.2:compile[36m -- module fest.reflect[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.easytesting:fest-util:jar:1.1.3:compile[36m -- module fest.util[0;1;33m (auto)[m
+[[1;34mINFO[m]    net.jcip:jcip-annotations:jar:1.0:compile[36m -- module jcip.annotations[0;1;33m (auto)[m
+[[1;34mINFO[m]    xml-apis:xml-apis:jar:1.3.04:compile[36m -- module xml.apis[0;1;33m (auto)[m
+[[1;34mINFO[m]    commons-io:commons-io:jar:1.3.2:compile[36m -- module commons.io[0;1;33m (auto)[m
+[[1;34mINFO[m]    colt:colt:jar:1.2.0:compile[36m -- module colt[0;1;33m (auto)[m
+[[1;34mINFO[m]    concurrent:concurrent:jar:1.3.4:compile[36m -- module concurrent[0;1;33m (auto)[m
+[[1;34mINFO[m]    commons-lang:commons-lang:jar:2.6:compile[36m -- module commons.lang[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.swinglabs:swingx:jar:1.6.1:compile[36m -- module swingx[0;1;33m (auto)[m
+[[1;34mINFO[m]    com.jhlabs:filters:jar:2.0.235:compile[36m -- module filters[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.swinglabs:swing-worker:jar:1.1:compile[36m -- module swing.worker[0;1;33m (auto)[m
+[[1;34mINFO[m]    fr.lip6.pnml:fr.lip6.pnml.framework.3rdpartimports:jar:2.2.12:compile
+[[1;34mINFO[m]    fr.lip6.pnml:fr.lip6.pnml.framework.utils:jar:2.2.12:compile[36m -- module fr.lip6.pnml.framework.utils[0;1;33m (auto)[m
+[[1;34mINFO[m]    fr.lip6.pnml:fr.lip6.pnml.framework.coremodel:jar:2.2.12:compile[36m -- module fr.lip6.pnml.framework.coremodel[0;1;33m (auto)[m
+[[1;34mINFO[m]    fr.lip6.pnml:fr.lip6.pnml.framework.ptnet:jar:2.2.12:compile[36m -- module fr.lip6.pnml.framework.ptnet[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.eclipse.emf:org.eclipse.emf.ecore:jar:2.12.0:compile[36m -- module org.eclipse.emf.ecore[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.eclipse.emf:org.eclipse.emf.ecore.xmi:jar:2.12.0:compile[36m -- module org.eclipse.emf.ecore.xmi[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.eclipse.emf:org.eclipse.emf.codegen:jar:2.11.0:compile[36m -- module org.eclipse.emf.codegen[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.eclipse.emf:org.eclipse.emf.codegen.ecore:jar:2.12.0:compile[36m -- module org.eclipse.emf.codegen.ecore[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.eclipse.emf:org.eclipse.emf.common:jar:2.12.0:compile[36m -- module org.eclipse.emf.common[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.eclipse:ocl:jar:3.6.100:compile[36m -- module ocl[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.eclipse.ocl:ecore:jar:3.6.100:compile[36m -- module ecore[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.eclipse.ocl:common:jar:1.4.100:compile[36m -- module common[0;1;33m (auto)[m
+[[1;34mINFO[m]    com.github.jai-imageio:jai-imageio-core:jar:1.4.0:compile[36m -- module jai.imageio.core[0;1;33m (auto)[m
+[[1;34mINFO[m]    com.github.jai-imageio:jai-imageio-jpeg2000:jar:1.3.0:compile[36m -- module jai.imageio.jpeg2000[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.apache.pdfbox:jbig2-imageio:jar:3.0.3:compile[36m -- module org.apache.pdfbox.jbig2[0;1m [auto][m
+[[1;34mINFO[m]    org.junit.jupiter:junit-jupiter:jar:6.1.0-M1:compile[36m -- module org.junit.jupiter[m
+[[1;34mINFO[m]    org.junit.jupiter:junit-jupiter-api:jar:6.1.0-M1:compile[36m -- module org.junit.jupiter.api[m
+[[1;34mINFO[m]    org.opentest4j:opentest4j:jar:1.3.0:compile[36m -- module org.opentest4j[m
+[[1;34mINFO[m]    org.junit.platform:junit-platform-commons:jar:6.1.0-M1:compile[36m -- module org.junit.platform.commons[m
+[[1;34mINFO[m]    org.apiguardian:apiguardian-api:jar:1.1.2:compile[36m -- module org.apiguardian.api[m
+[[1;34mINFO[m]    org.jspecify:jspecify:jar:1.0.0:compile[36m -- module org.jspecify[m
+[[1;34mINFO[m]    org.junit.jupiter:junit-jupiter-params:jar:6.1.0-M1:compile[36m -- module org.junit.jupiter.params[m
+[[1;34mINFO[m]    org.junit.jupiter:junit-jupiter-engine:jar:6.1.0-M1:runtime[36m -- module org.junit.jupiter.engine[m
+[[1;34mINFO[m]    org.junit.platform:junit-platform-engine:jar:6.1.0-M1:runtime[36m -- module org.junit.platform.engine[m
+[[1;34mINFO[m]    org.qore:jline:jar:2.0:compile[36m -- module jline[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.apache.commons:commons-math3:jar:3.6.1:compile[36m -- module commons.math3[0;1;33m (auto)[m
+[[1;34mINFO[m]    us.hebi.matlab.mat:mfl-core:jar:0.5.15:compile[36m -- module us.hebi.matlab.mat.mfl.core[0;1m [auto][m
+[[1;34mINFO[m]    us.hebi.matlab.mat:mfl-ejml:jar:0.5.15:compile[36m -- module us.hebi.matlab.mat.mfl.ejml[0;1m [auto][m
+[[1;34mINFO[m]    de.xypron.jcobyla:jcobyla:jar:1.3:compile[36m -- module jcobyla[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-all:jar:0.43.1:compile[36m -- module ejml.all[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-core:jar:0.43.1:compile[36m -- module ejml.core[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-fdense:jar:0.43.1:compile[36m -- module ejml.fdense[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-ddense:jar:0.43.1:compile[36m -- module ejml.ddense[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-cdense:jar:0.43.1:compile[36m -- module ejml.cdense[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-zdense:jar:0.43.1:compile[36m -- module ejml.zdense[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-dsparse:jar:0.43.1:compile[36m -- module ejml.dsparse[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-simple:jar:0.43.1:compile[36m -- module ejml.simple[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.ejml:ejml-fsparse:jar:0.43.1:compile[36m -- module ejml.fsparse[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.javatuples:javatuples:jar:1.2:compile[36m -- module javatuples[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.apache.commons:commons-lang3:jar:3.14.0:compile[36m -- module org.apache.commons.lang3[m
+[[1;34mINFO[m]    org.apache.commons:commons-rng-parent:pom:1.4:compile
+[[1;34mINFO[m]    org.apfloat:apfloat:jar:1.10.1:compile[36m -- module org.apfloat[0;1m [auto][m
+[[1;34mINFO[m]    lsoda-java:lsoda:jar:1.0:compile[36m -- module lsoda[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.java-websocket:Java-WebSocket:jar:1.5.1:compile[36m -- module Java.WebSocket[0;1;33m (auto)[m
+[[1;34mINFO[m]    commons-cli:commons-cli:jar:1.8.0:compile[36m -- module org.apache.commons.cli[m
+[[1;34mINFO[m]    com.google.code.gson:gson:jar:2.11.0:compile[36m -- module com.google.gson[m
+[[1;34mINFO[m]    com.google.errorprone:error_prone_annotations:jar:2.27.0:compile[36m -- module com.google.errorprone.annotations[m
+[[1;34mINFO[m]    org.jetbrains.kotlin:kotlin-stdlib-jdk8:jar:2.0.21:compile[36m -- module kotlin.stdlib.jdk8[m
+[[1;34mINFO[m]    org.jetbrains.kotlin:kotlin-stdlib:jar:2.0.21:compile[36m -- module kotlin.stdlib[m
+[[1;34mINFO[m]    org.jetbrains:annotations:jar:13.0:compile[36m -- module annotations[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.jetbrains.kotlin:kotlin-stdlib-jdk7:jar:2.0.21:compile[36m -- module kotlin.stdlib.jdk7[m
+[[1;34mINFO[m]    jgraph:jgraph:jar:5.10.2.0:compile[36m -- module jgraph[0;1;33m (auto)[m
+[[1;34mINFO[m]    ptolemy:ptolemy:jar:1.0.0:compile[36m -- module ptolemy[0;1;33m (auto)[m
+[[1;34mINFO[m]    lpg.runtime:java:jar:2.0.17:compile[36m -- module java[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.graphper:graph-support:jar:1.3.1:compile[36m -- module graph.support[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.slf4j:slf4j-api:jar:1.7.32:compile[36m -- module org.slf4j[0;1m [auto][m
+[[1;34mINFO[m]    org.apache.maven:maven-model:jar:3.8.6:compile[36m -- module maven.model[0;1;33m (auto)[m
+[[1;34mINFO[m]    org.codehaus.plexus:plexus-utils:jar:3.3.1:compile[36m -- module plexus.utils[0;1;33m (auto)[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  1.720 s
+[[1;34mINFO[m] Finished at: 2025-11-30T11:48:07+01:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m

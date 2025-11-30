@@ -59,7 +59,6 @@ public class DropDownPanels extends JPanel {
       JLQNModel data = jw.getData();
       synchronized (data) {
         if (data.getSolverType() != type) {
-          System.out.printf("Solver changed to %s%n", type);
           data.setSolverType(type);
         }
       }
@@ -84,10 +83,7 @@ public class DropDownPanels extends JPanel {
       }
       JLQNModel data = jw.getData();
       synchronized (data) {
-        // TODO: On Solver Change, remove values that no longer fit the solver
-        // Keep values that seep the solver
         if (data.getViewerType() != type) {
-          System.out.printf("Viewer changed to %s%n", type);
           data.setViewType(type);
         }
       }

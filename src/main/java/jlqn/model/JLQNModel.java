@@ -1477,8 +1477,6 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setProcessorNames(String[] processorNames) {
         if (processorNames.length != numberOfProcessors) {
-            System.out.println(processorNames.length+'\n');
-            System.out.println(numberOfProcessors +'\n');
             throw new IllegalArgumentException("processorNames.length!=numberOfProcessors");
         }
         if (Arrays.equals(this.processorNames, processorNames)) {
@@ -1558,8 +1556,6 @@ public class JLQNModel implements JLQNConstants {
     }
     public boolean setTaskNames(String[] taskNames) {
         if (taskNames.length != numberOfTasks) {
-            System.out.println(taskNames.length+'\n');
-            System.out.println(numberOfTasks +'\n');
             throw new IllegalArgumentException("taskNames.length!=numberOfTasks");
         }
         if (Arrays.equals(this.taskNames, taskNames)) {
@@ -1652,8 +1648,6 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setEntryNames(String[] entryNames) {
         if (entryNames.length != numberOfEntries) {
-            System.out.println(entryNames.length +'\n');
-            System.out.println(numberOfEntries +'\n');
             throw new IllegalArgumentException("entryNames.length!=numberOfEntries");
         }
         if (Arrays.equals(this.entryNames, entryNames)) {
@@ -1667,8 +1661,6 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setEntryTask(String[] entryTask) {
         if (entryTask.length != numberOfEntries) {
-            System.out.println(entryTask.length +'\n');
-            System.out.println(numberOfEntries +'\n');
             throw new IllegalArgumentException("entryTask.length!=numberOfEntries");
         }
         if (Arrays.equals(this.entryTask, entryTask)) {
@@ -1681,8 +1673,6 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setEntryBoundToActivity(String[] entryBoundToActivity) {
         if (entryBoundToActivity.length != numberOfEntries) {
-            System.out.println(entryBoundToActivity.length +'\n');
-            System.out.println(numberOfEntries +'\n');
             throw new IllegalArgumentException("entryBoundToActivity.length!=numberOfEntries");
         }
         if (Arrays.equals(this.entryBoundToActivity, entryBoundToActivity)) {
@@ -1695,8 +1685,6 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setEntryReplyToActivity(String[] entryReplyToActivity) {
         if (entryReplyToActivity.length != numberOfEntries) {
-            System.out.println(entryReplyToActivity.length +'\n');
-            System.out.println(numberOfEntries +'\n');
             throw new IllegalArgumentException("entryReplyToActivity.length!=numberOfEntries");
         }
         if (Arrays.equals(this.entryReplyToActivity, entryReplyToActivity)) {
@@ -1777,8 +1765,6 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setCallNames(String[] callNames) {
         if (callNames.length != numberOfCalls) {
-            System.out.println(callNames.length +'\n');
-            System.out.println(numberOfCalls +'\n');
             throw new IllegalArgumentException("callNames.length!=numberOfCalls");
         }
         if (Arrays.equals(this.callNames, callNames)) {
@@ -1792,8 +1778,6 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setCallActivity(String[] callActivity) {
         if (callActivity.length != numberOfCalls) {
-            System.out.println(callActivity.length +'\n');
-            System.out.println(numberOfCalls +'\n');
             throw new IllegalArgumentException("callActivity.length!=numberOfCalls");
         }
         if (Arrays.equals(this.callActivity, callActivity)) {
@@ -1806,8 +1790,6 @@ public class JLQNModel implements JLQNConstants {
 
     public boolean setCallEntry(String[] callEntry) {
         if (callEntry.length != numberOfCalls) {
-            System.out.println(callEntry.length +'\n');
-            System.out.println(numberOfCalls +'\n');
             throw new IllegalArgumentException("callEntry.length!=numberOfCalls");
         }
         if (Arrays.equals(this.callEntry, callEntry)) {

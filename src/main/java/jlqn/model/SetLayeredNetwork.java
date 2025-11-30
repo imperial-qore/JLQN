@@ -242,28 +242,9 @@ public class SetLayeredNetwork {
         try {
             File file = new File("");
             String tmpFileName = lineTempName("jlqn") + ".xml";
-            System.out.println("\nWriting solver output to temporary file: "+ tmpFileName);
             myLN.writeXML(tmpFileName, true);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-//    public static void main(String[] args) throws IOException {
-//        JLQNModel model = new JLQNModel();
-//        model.setMockModel();
-////        LayeredNetwork myLN = new LayeredNetwork("Mock LayeredNetwork Model");
-//        LayeredNetwork myLN = SetLayeredNetwork(model);
-//        myLN.summary(); //prints LayeredNetworkStruct field values
-//
-//        try{
-//            File file = new File("");
-//            String filePath = file.getCanonicalPath();
-//            myLN.writeXML(filePath+"/mockXML.xml", true);
-//        }
-//        catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
 }

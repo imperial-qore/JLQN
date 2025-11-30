@@ -422,12 +422,10 @@ public final class PrecedencePanel extends WizardPanel implements JLQNConstants,
                 }
                 case COL_PRE_ACTIVITIES: {
                     String newval = (String) value;
-                    System.out.println("PRE ACTIVIIY SET VALUE");
                     break;
                 }
                 case COL_POST_ACTIVITIES: {
                     String newval = (String) value;
-                    System.out.println("POST ACTIVIIY SET VALUE");
                     break;
                 }
                 default:

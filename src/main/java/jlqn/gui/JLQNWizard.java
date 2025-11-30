@@ -66,7 +66,6 @@ public class JLQNWizard extends Wizard {
     private static final long serialVersionUID = 1L;
     private static final String TITLE = "JLQN - Layered Queueing Network Solver";
     public static final String JLQN = "JLQN";
-    private static final boolean DEBUG = false;
 
     private JLQNModel data;
     private HoverHelp help;

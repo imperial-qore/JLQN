@@ -333,12 +333,10 @@ public final class ProcessorsPanel extends WizardPanel implements JLQNConstants,
                 URL jarUrl = codeSource.getLocation();
                 try {
                     jarPath = URLDecoder.decode(jarUrl.getPath(), "UTF-8");
+                    System.out.println("Running JAR absolute path: " + jarPath);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.println("Running JAR absolute path: " + jarPath);
-            } else {
-                System.out.println("The code is not running from a JAR file.");
             }
             viewEnsembleLayerWiz.setEnabled(true);
             String finalJarPath = jarPath;

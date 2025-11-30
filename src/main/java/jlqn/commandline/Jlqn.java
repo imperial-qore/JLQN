@@ -33,11 +33,8 @@ import java.io.File;
 
 public class Jlqn {
 
-	//private static final String OPTION_SEED = "-seed";
-
 	public static void help() {
 		System.err.println("Usage: jlqn.commandline.Jlqn [modelfilename]");
-		//System.err.println("  -seed N : sets the random number seed to N (e.g., N=23000)");
 		System.exit(0);
 	}
 
