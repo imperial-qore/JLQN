@@ -593,7 +593,7 @@ public class JLQNModel implements JLQNConstants {
     public void setDefaults() {
         resultsOK = false;
         viewerType = ViewerType.WIZ;
-        solverType = SolverType.LQNS;
+        solverType = SolverType.LN;
         changed = true;
 
         numberOfProcessors = 1;

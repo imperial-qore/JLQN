@@ -85,7 +85,7 @@ public interface JLQNConstants {
     public static int PRECEDENCE_LOOP = 5;
 
     public enum SolverType {
-        ALL, LQNS, LN
+        LN
     }
 
     public enum ViewerType {

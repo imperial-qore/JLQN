@@ -54,24 +54,10 @@ public class DropDownPanels extends JPanel {
     public void actionPerformed(ActionEvent e) {
       solverTypes = (JComboBox<String>) e.getSource();
       String solverType = (String) solverTypes.getSelectedItem();
-      JLQNConstants.SolverType type = null;
+      JLQNConstants.SolverType type = JLQNConstants.SolverType.LN;
 
-      switch (solverType) {
-        case "LQNS":
-          type = JLQNConstants.SolverType.LQNS;
-          break;
-        case "LN":
-          type = JLQNConstants.SolverType.LN;
-          break;
-        case "ALL":
-        default:
-          type = JLQNConstants.SolverType.ALL;
-          break;
-      }
       JLQNModel data = jw.getData();
       synchronized (data) {
-        // TODO: On Solver Change, remove values that no longer fit the solver
-        // Keep values that seep the solver
         if (data.getSolverType() != type) {
           System.out.printf("Solver changed to %s%n", type);
           data.setSolverType(type);
@@ -145,7 +131,7 @@ public class DropDownPanels extends JPanel {
   }
 
   private JComponent solverList() {
-    String[] solverNameList = {"LN", "LQNS", "LN+LQNS"};
+    String[] solverNameList = {"LN"};
     solverTypes = new JComboBox<>(solverNameList);
 
     Dimension d = new Dimension(160, 30);

@@ -2,6 +2,7 @@ package jlqn.model;
 
 import jline.lang.constant.SchedStrategy;
 import jline.lang.layered.*;
+import jline.lang.processes.Exp;
 import jline.util.matrix.Matrix;
 import jmt.framework.data.ArrayUtils;
 import java.io.File;
@@ -102,10 +103,7 @@ public class SetLayeredNetwork {
         for (int t = 0; t < tasks; t++) {
             SchedStrategy taskSched = SchedStrategy.valueOf(taskSchedAbbr[taskScheduling[t]].toUpperCase());
             Task newTask = new Task(myLN, taskNames[t], taskMultiplicity[t], taskSched);
-            // TODO: This works with LN solver but not with LQNS:
-//            newTask.setThinkTime(new Exp(taskThinkTimeMean[t]));
-            // TODO: This works with LQNS solver:
-            newTask.setThinkTime(taskThinkTimeMean[t]);
+            newTask.setThinkTime(new Exp(taskThinkTimeMean[t]));
             newTask.setReplication(taskReplicas[t]);
             taskMap.put(taskNames[t], newTask);
 

@@ -29,7 +29,6 @@ import jline.lang.layered.LayeredNetwork;
 import jline.solvers.LayeredNetworkAvgTable;
 import jline.solvers.SolverOptions;
 import jline.solvers.ln.SolverLN;
-import jline.solvers.lqns.SolverLQNS;
 import jlqn.common.JLQNConstants;
 import jlqn.gui.xml.JLQNModelExporter;
 import jlqn.model.JLQNModel;
@@ -520,66 +519,22 @@ public class JLQNWizard extends Wizard {
             return;
         }
         SetLayeredNetwork.outputXML(lqnmodel);
-        switch (data.getSolverType()) {
-            case LN:
-                try {
-                    SolverLN lnSolver = new SolverLN(lqnmodel, new SolverOptions(SolverType.LN));
-                    final LayeredNetworkAvgTable lnAvgTable = (LayeredNetworkAvgTable) lnSolver.getEnsembleAvg(); // Create this
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            createSolutionWindow(lnAvgTable, SolverType.LN);
-                        }
-                    });
-                } catch (Exception e) {
-                    StringWriter sw = new StringWriter();
-                    e.printStackTrace(new PrintWriter(sw));
-                    String exceptionAsString = sw.toString();
-                    JTextArea msg = new JTextArea(exceptionAsString);
-                    msg.setEditable(false);
-                    JOptionPane.showMessageDialog(this, msg, "Solver LN Exception", JOptionPane.ERROR_MESSAGE);
+        try {
+            SolverLN lnSolver = new SolverLN(lqnmodel, new SolverOptions(SolverType.LN));
+            final LayeredNetworkAvgTable lnAvgTable = (LayeredNetworkAvgTable) lnSolver.getEnsembleAvg();
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    createSolutionWindow(lnAvgTable, SolverType.LN);
                 }
-                break;
-            case LQNS:
-                try {
-                    SolverLQNS lqnsSolver = new SolverLQNS(lqnmodel);
-                    final LayeredNetworkAvgTable lqnsAvgTable = lqnsSolver.getAvgTable();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            createSolutionWindow(lqnsAvgTable, SolverType.LQNS);
-                        }
-                    });
-                }  catch (Exception e) {
-                    StringWriter sw = new StringWriter();
-                    e.printStackTrace(new PrintWriter(sw));
-                    String exceptionAsString = sw.toString();
-                    JTextArea msg = new JTextArea(exceptionAsString);
-                    msg.setEditable(false);
-                    JOptionPane.showMessageDialog(this, msg, "Solver LQNS Exception", JOptionPane.ERROR_MESSAGE);
-                }
-                break;
-            default:
-                try {
-                    SolverLN lnSolver = new SolverLN(lqnmodel, new SolverOptions(SolverType.LN));
-                    final LayeredNetworkAvgTable lnAvgTable = (LayeredNetworkAvgTable) lnSolver.getEnsembleAvg(); // Create this
-                    SolverLQNS lqnsSolver = new SolverLQNS(lqnmodel);
-                    final LayeredNetworkAvgTable lqnsAvgTable = lqnsSolver.getAvgTable();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            createSolutionWindow(lnAvgTable, SolverType.LN, lqnsAvgTable, SolverType.LQNS);
-                        }
-                    });
-                } catch (Exception e) {
-                    StringWriter sw = new StringWriter();
-                    e.printStackTrace(new PrintWriter(sw));
-                    String exceptionAsString = sw.toString();
-                    JTextArea msg = new JTextArea(exceptionAsString);
-                    msg.setEditable(false);
-                    JOptionPane.showMessageDialog(this, msg, "Solver LN Exception", JOptionPane.ERROR_MESSAGE);
-                }
-                break;
+            });
+        } catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            JTextArea msg = new JTextArea(exceptionAsString);
+            msg.setEditable(false);
+            JOptionPane.showMessageDialog(this, msg, "Solver LN Exception", JOptionPane.ERROR_MESSAGE);
         }
         // This section is needed to refresh the value of the viewer as it seems to be lost upon solve
         String viewType = (String) dropDownPanels.viewTypes.getSelectedItem();
@@ -603,20 +558,6 @@ public class JLQNWizard extends Wizard {
         // Now update and show the resutls
         updatePanels();
         currentPanel.gotFocus();
-    }
-
-    private void createSolutionWindow(LayeredNetworkAvgTable avgTable1, SolverType solverType1, LayeredNetworkAvgTable avgTable2, SolverType solverType2) {
-        JTabbedPane jtp = new JTabbedPane();
-        String resultTitle = "JLQN Solutions";
-        JFrame solutionWindow = new JFrame(resultTitle);
-        solutionWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        solutionWindow.getContentPane().add(jtp);
-        solutionWindow.setIconImage(this.getIconImage());
-        jtp.add(new AvgTablePanel(this, avgTable1, solverType1));
-        jtp.add(new AvgTablePanel(this, avgTable2, solverType2));
-        Rectangle rect = this.getBounds();
-        solutionWindow.setBounds(rect.x + 20, rect.y + 20, rect.width, rect.height);
-        solutionWindow.setVisible(true);
     }
 
     private void createSolutionWindow(LayeredNetworkAvgTable avgTable, SolverType solverType) {

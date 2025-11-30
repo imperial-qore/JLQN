@@ -14,7 +14,7 @@ It is also possible to open directly a model using:
 ```
 java -jar target/jlqn-singlejar.jar examples/example.jlqn
 ``` 
-The JLQN GUI is shipped with the LN solver (Java version) of [LINE](https://line-solver.sourceforge.net/). JLQN also supports the [LQNS solver](https://www.sce.carleton.ca/rads/lqns/) if installed on the system. 
+The JLQN GUI is shipped with the LN solver (Java version) of [LINE](https://line-solver.sourceforge.net/).
 
 ## Model assumptions
 This version of JLQN takes the following assumptions: 
@@ -26,10 +26,6 @@ This version of JLQN takes the following assumptions:
 LN (as of [LINE](https://line-solver.sf.net/) version 2.0.36):
 * SRVN layering.
 * Activities modelled as successive visits to the server.
-  
-LQNS:
-* Batch layering.
-* Activities modelled as service phases.
 
 ## License
 GNU General Public License v2.0. 
